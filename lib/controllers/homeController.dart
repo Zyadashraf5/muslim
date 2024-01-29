@@ -23,6 +23,7 @@ class HomeController extends GetxController {
   List<MasagedyModel> masaged = [];
   UserModel? filteredUser;
   String? filterDate;
+  int myMo5lfat = 0;
   List<GadwelModel> myGadwalss = [];
   List<MasagedyModel> myMasagedss = [];
   MasagedyModel? selectedMasged;
@@ -121,8 +122,12 @@ class HomeController extends GetxController {
   Future<void> getallGadwel() async {
     gadawel = [];
     update();
-    final snapshot =
-        await FirebaseFirestore.instance.collection("Gadwel").get();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String ssn = prefs.getString('ssn')!;
+    final snapshot = await FirebaseFirestore.instance
+        .collection("Gadwel")
+        .where("seenUsers", arrayContains: ssn)
+        .get();
     List<GadwelModel> gadwel =
         snapshot.docs.map((e) => GadwelModel.fromSnapShot(e)).toList();
     gadawel = gadwel;
@@ -138,10 +143,24 @@ class HomeController extends GetxController {
         .collection("Gadwel")
         .where('users', arrayContains: ssn)
         .get();
-    List<GadwelModel> gadwel =
-        snapshot.docs.map((e) => GadwelModel.fromSnapShot(e)).toList();
+    List<GadwelModel> gadwel = snapshot.docs
+        .where((doc) => !doc['seenUsers'].contains(ssn.toString()))
+        .map((e) => GadwelModel.fromSnapShot(e))
+        .toList();
     ownGadawel = gadwel;
 
+    update();
+  }
+
+  Future<void> archiveDoc(String docId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String ssn = prefs.getString('ssn')!;
+    final snapshot = await FirebaseFirestore.instance
+        .collection("Gadwel")
+        .doc(docId)
+        .update({
+      "seenUsers": FieldValue.arrayUnion([ssn])
+    });
     update();
   }
 
@@ -343,6 +362,15 @@ class HomeController extends GetxController {
         masgedSnap.docs.map((e) => MasagedyModel.fromSnapShot(e)).toList();
     myGadwalss = myGadwels;
     myMasagedss = myMasageds;
+    int mola7azat = 0;
+    await Future.forEach(
+        myMasageds,
+        (masged) => {
+              if (masged.mo5alfat != "")
+                {mola7azat += masged.mo5alfat!.split("-").length},
+              print(masged.mo5alfat!)
+            });
+    myMo5lfat = mola7azat;
     Map<DateTime, int> masgedsDataChart = {};
     Map<DateTime, int> gadwelsDataChart = {};
     String date;

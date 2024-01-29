@@ -59,7 +59,7 @@ class Malfat_duty extends GetView<AuthControler> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "المخالفات",
+                            "الملاحظات",
                             style: TextStyle(
                                 fontSize: 20,
                                 fontFamily: "TajawalMedium",
@@ -145,7 +145,7 @@ class Malfat_duty extends GetView<AuthControler> {
                             int.parse(controller.user!.role) == 2 ||
                             int.parse(controller.user!.role) == 3
                         ? malfadutybottons(
-                            "مكبرات الصوت وأعدادها  ",
+                            "مكبرات الصوت   ",
                           )
                         : SizedBox(),
 
@@ -177,7 +177,7 @@ class Malfat_duty extends GetView<AuthControler> {
                             int.parse(controller.user!.role) == 2 ||
                             int.parse(controller.user!.role) == 3
                         ? malfadutybottons(
-                            "إفطارالصائم  ",
+                            "إفطار الصائم  ",
                           )
                         : SizedBox(),
 

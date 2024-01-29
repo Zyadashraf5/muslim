@@ -40,72 +40,17 @@ class MyAnalytics extends StatelessWidget {
                       SizedBox(height: 20),
                       Text(
                         "${controller.myMasagedss.length} : عدد الجولات التفقديه ",
+                        style: TextStyle(fontSize: 30),
                       ),
                       SizedBox(height: 20),
                       Text(
                         "${controller.myGadwalss.length} : عدد الجداول ",
+                        style: TextStyle(fontSize: 30),
                       ),
                       SizedBox(height: 20),
                       Text(
-                        "Chart for Masgeds:",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        height: 200,
-                        child: BarChart(
-                          BarChartData(
-                            barGroups:
-                                controller.masgedsssDataChart.keys.map((e) {
-                              return BarChartGroupData(
-                                x: e.month,
-                                
-                                barRods: [
-                                  BarChartRodData(
-                                    toY: controller.masgedsssDataChart[e]!
-                                        .toDouble(),
-                                  ),
-                                ],
-                              );
-                            }).toList(),
-                            maxY: 10,
-                            minY: 0,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        "Chart for Gadwels:",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 10),
-                      Column(
-                        children: [
-                          Container(
-                            height: 200,
-                            child: BarChart(
-                              BarChartData(
-                                barGroups:
-                                    controller.gadwelsssDataChart.keys.map((e) {
-                                  return BarChartGroupData(
-                                    showingTooltipIndicators: [1],
-                                    x: e.month,
-                                    barRods: [
-                                      BarChartRodData(
-                                        toY: controller.gadwelsssDataChart[e]!
-                                            .toDouble(),
-                                      ),
-                                    ],
-                                  );
-                                }).toList(),
-                                maxY: 10,
-                                minY: 0,
-                              ),
-                            ),
-                          )
-                        ],
+                        "${controller.myMo5lfat} : عدد الملاحظات ",
+                        style: TextStyle(fontSize: 30),
                       ),
                     ],
                   ),

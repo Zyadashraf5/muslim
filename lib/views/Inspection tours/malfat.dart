@@ -52,7 +52,7 @@ class malfat extends GetView<MasgedController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "مخالفات",
+                          "الملاحظات",
                           style: TextStyle(fontSize: 20, color: Colors.black),
                         ),
                       ],
@@ -63,7 +63,7 @@ class malfat extends GetView<MasgedController> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     child: Text(
-                      ":هل يوجد مخالفات",
+                      ":هل يوجد ملاحظات",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20,
@@ -81,7 +81,6 @@ class malfat extends GetView<MasgedController> {
                           children: [
                             TextFormField(
                               decoration: InputDecoration(
-                                hintText: "الملاحظات",
                                 hintStyle: TextStyle(
                                     fontSize: 20,
                                     color: Colors.black,

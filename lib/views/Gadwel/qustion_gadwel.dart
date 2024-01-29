@@ -98,7 +98,7 @@ class QustionGadwel extends GetView<GadwelController> {
                             ),
                             filled: true,
                             fillColor: Color.fromARGB(255, 231, 237, 232),
-                            hintText: " اسم العضو (اختياري)",
+                            hintText: " اسم العضو",
                           ),
                         ),
                       ),
@@ -151,7 +151,7 @@ class QustionGadwel extends GetView<GadwelController> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           child: Text(
-                            ":األسبوع",
+                            ":الأسبوع",
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -199,31 +199,8 @@ class QustionGadwel extends GetView<GadwelController> {
                       controller.weekControllerfrist.text == "الاول"
                           ? Column(
                               children: [
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Colors.grey.shade200))),
-                                  child: TextFormField(
-                                    controller: controller.dateControllerfrist,
-                                    keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      filled: true,
-                                      fillColor:
-                                          Color.fromARGB(255, 231, 237, 232),
-                                      hintText: " التاريخ  يوم/شهر",
-                                    ),
-                                  ),
-                                ),
-                                Divider(),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.only(left: 350),
                                   child: Container(
                                     child: Text(
                                       ":المركز",
@@ -379,7 +356,7 @@ class QustionGadwel extends GetView<GadwelController> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           child: Text(
-                            ":األسبوع",
+                            ":الأسبوع",
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -426,32 +403,10 @@ class QustionGadwel extends GetView<GadwelController> {
                       ),
                       controller.weekControllerSecond.text == "الثاني"
                           ? Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Colors.grey.shade200))),
-                                  child: TextFormField(
-                                    controller: controller.dateControllerSecond,
-                                    keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      filled: true,
-                                      fillColor:
-                                          Color.fromARGB(255, 231, 237, 232),
-                                      hintText: " التاريخ  يوم/شهر",
-                                    ),
-                                  ),
-                                ),
-                                Divider(),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.only(left: 350),
                                   child: Container(
                                     child: Text(
                                       ":المركز",
@@ -607,7 +562,7 @@ class QustionGadwel extends GetView<GadwelController> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           child: Text(
-                            ":األسبوع",
+                            ":الأسبوع",
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -655,31 +610,8 @@ class QustionGadwel extends GetView<GadwelController> {
                       controller.weekControllerthird.text == "الثالث"
                           ? Column(
                               children: [
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Colors.grey.shade200))),
-                                  child: TextFormField(
-                                    controller: controller.dateControllerthird,
-                                    keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      filled: true,
-                                      fillColor:
-                                          Color.fromARGB(255, 231, 237, 232),
-                                      hintText: " التاريخ  يوم/شهر",
-                                    ),
-                                  ),
-                                ),
-                                Divider(),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.only(left: 350),
                                   child: Container(
                                     child: Text(
                                       ":المركز",
@@ -835,7 +767,7 @@ class QustionGadwel extends GetView<GadwelController> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           child: Text(
-                            ":األسبوع",
+                            ":الأسبوع",
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -883,31 +815,8 @@ class QustionGadwel extends GetView<GadwelController> {
                       controller.weekControllerfourth.text == "الرابع"
                           ? Column(
                               children: [
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Colors.grey.shade200))),
-                                  child: TextFormField(
-                                    controller: controller.dateControllerfourth,
-                                    keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      filled: true,
-                                      fillColor:
-                                          Color.fromARGB(255, 231, 237, 232),
-                                      hintText: " التاريخ  يوم/شهر",
-                                    ),
-                                  ),
-                                ),
-                                Divider(),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.only(left: 350),
                                   child: Container(
                                     child: Text(
                                       ":المركز",

@@ -116,14 +116,14 @@ class PdfInspection extends GetView<MasgedController> {
                       Expanded(
                           flex: 2,
                           child: TableCell(
-                            text: "لمنطقة : ${masgedModel.branch}  ",
+                            text: "المنطقة : ${masgedModel.branch}  ",
                           )),
                       CustomDivider(
                         height: 40,
                       ),
                     ],
                   ),
-                  const Row(
+                  Row(
                     children: [
                       CustomDivider(
                         height: 40,
@@ -131,7 +131,7 @@ class PdfInspection extends GetView<MasgedController> {
                       Expanded(
                         flex: 2,
                         child: TableCell(
-                          text: "قم عداد المياه :5",
+                          text: "${masgedModel.watername}: قم عداد المياه ",
                         ),
                       ),
                       CustomDivider(
@@ -140,7 +140,8 @@ class PdfInspection extends GetView<MasgedController> {
                       Expanded(
                         flex: 2,
                         child: TableCell(
-                          text: "قم عداد الكهرباء: 8",
+                          text:
+                              " ${masgedModel.electricname} :قم عداد الكهرباء",
                         ),
                       ),
                       CustomDivider(
@@ -270,34 +271,8 @@ class PdfInspection extends GetView<MasgedController> {
                     height: 50,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              "مشرف اللجان الميدانية",
-                              style: TextStyle(
-                                  fontSize: 11, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            ),
-                            masgedModel.signatureRole2 != null
-                                ? Image(
-                                    width: 100,
-                                    height: 50,
-                                    fit: BoxFit.contain,
-                                    image: NetworkImage(
-                                        masgedModel.signatureRole2!),
-                                  )
-                                : Container()
-                          ],
-                        ),
-                      ),
                       Container(
                         width: 100,
                         height: 100,
@@ -313,6 +288,9 @@ class PdfInspection extends GetView<MasgedController> {
                               textAlign: TextAlign.center,
                             ),
                             masgedModel.signatureRole3 != null
+                                ? Text(masgedModel.signerNameRole3!)
+                                : Container(),
+                            masgedModel.signatureRole3 != null
                                 ? Image(
                                     width: 100,
                                     height: 50,
@@ -320,7 +298,7 @@ class PdfInspection extends GetView<MasgedController> {
                                     image: NetworkImage(
                                         masgedModel.signatureRole3!),
                                   )
-                                : Container()
+                                : Container(),
                           ],
                         ),
                       ),
@@ -350,6 +328,20 @@ class PdfInspection extends GetView<MasgedController> {
                           ),
                         ],
                       ),
+                    ],
+                  ),
+                  //
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Column(
+                    children: [
+                      ...masgedModel.was2k!
+                          .map((e) => Container(
+                                child: Image.network(e),
+                                padding: EdgeInsets.symmetric(vertical: 20),
+                              ))
+                          .toList()
                     ],
                   )
                 ],

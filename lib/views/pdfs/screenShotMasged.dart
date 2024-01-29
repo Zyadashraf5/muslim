@@ -1,7 +1,9 @@
 import 'dart:io';
-import 'dart:typed_data';
 
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -10,10 +12,12 @@ import 'package:muslimapp/controllers/masgedController.dart';
 import 'package:muslimapp/models/Gadwel.dart';
 import 'package:muslimapp/models/Masagedy.dart';
 import 'package:muslimapp/views/pdfs/pdf_inspection.dart';
+import 'package:pdf/pdf.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:device_info_plus/device_info_plus.dart';
 
 class screenshotMasged extends StatefulWidget {
   screenshotMasged({super.key, required this.masagedyModel});
@@ -39,7 +43,7 @@ class _screenshotState extends State<screenshotMasged> {
                     onPressed: () async {
                       final image = await controller.capture();
                       if (image != null) {
-                        await saveImage(image);
+                        await saveImage(image, masgedModel);
                         SnackBar snackBar = SnackBar(
                           content: Text("تم حفظ الصورة بنجاح"),
                           duration: Duration(seconds: 3),
@@ -148,7 +152,7 @@ class _screenshotState extends State<screenshotMasged> {
                           Expanded(
                               flex: 2,
                               child: TableCell(
-                                text: "لمنطقة : ${masgedModel.branch}  ",
+                                text: "المنطقة : ${masgedModel.branch}  ",
                               )),
                           CustomDivider(
                             height: 40,
@@ -192,7 +196,7 @@ class _screenshotState extends State<screenshotMasged> {
                           ),
                         ],
                       ),
-                      const Row(
+                      Row(
                         children: [
                           CustomDivider(
                             height: 40,
@@ -200,7 +204,7 @@ class _screenshotState extends State<screenshotMasged> {
                           Expanded(
                             flex: 2,
                             child: TableCell(
-                              text: "قم عداد المياه :5",
+                              text: "${masgedModel.watername}: قم عداد المياه ",
                             ),
                           ),
                           CustomDivider(
@@ -209,7 +213,8 @@ class _screenshotState extends State<screenshotMasged> {
                           Expanded(
                             flex: 2,
                             child: TableCell(
-                              text: "قم عداد الكهرباء: 8",
+                              text:
+                                  " ${masgedModel.electricname} :قم عداد الكهرباء",
                             ),
                           ),
                           CustomDivider(
@@ -350,39 +355,15 @@ class _screenshotState extends State<screenshotMasged> {
                             child: Column(
                               children: [
                                 Text(
-                                  "مشرف اللجان الميدانية",
-                                  style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                                masgedModel.signatureRole2 != null
-                                    ? Image(
-                                        width: 100,
-                                        height: 50,
-                                        fit: BoxFit.contain,
-                                        image: NetworkImage(
-                                            masgedModel.signatureRole2!),
-                                      )
-                                    : Container()
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
                                   "عضو اللجنة الميدانية",
                                   style: TextStyle(
                                       fontSize: 11,
                                       fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.center,
                                 ),
+                                masgedModel.signatureRole3 != null
+                                    ? Text(masgedModel.signerNameRole3!)
+                                    : Container(),
                                 masgedModel.signatureRole3 != null
                                     ? Image(
                                         width: 100,
@@ -499,10 +480,70 @@ class TableCell extends StatelessWidget {
   }
 }
 
-Future<String> saveImage(Uint8List bytes) async {
-  await [Permission.storage].request();
+Future<String> saveImage(Uint8List bytes, MasagedyModel masagedyModel) async {
+  final plugin = DeviceInfoPlugin();
+  final android = await plugin.androidInfo;
+
+  final storageStatus = android.version.sdkInt! < 33
+      ? await Permission.storage.request()
+      : PermissionStatus.granted;
+
+  if (storageStatus.isDenied) {
+    print(
+        "Storage permission permanently denied. Open app settings to enable.");
+    openAppSettings();
+    return "Error: Storage permission permanently denied";
+  }
   final time = DateTime.now().millisecondsSinceEpoch.toString();
   final name = 'masged $time';
-  final result = await ImageGallerySaver.saveImage(bytes, name: name);
-  return result['filePath'];
+  final pdf = pw.Document();
+  final image = pw.MemoryImage(bytes);
+  List<Uint8List> images = [];
+
+  if (masagedyModel.was2k != null) {
+    await Future.forEach(masagedyModel.was2k!, (link) async {
+      images.add(await NetworkAssetBundle(Uri.parse(link))
+          .load("")
+          .then((value) => value.buffer.asUint8List()));
+    });
+  }
+
+  pdf.addPage(
+    pw.Page(
+      build: (pw.Context context) {
+        return pw.Center(child: pw.Expanded(child: pw.Image(image)));
+      },
+    ),
+  );
+
+  if (images.isNotEmpty) {
+    await Future.forEach(images, (element) async {
+      final image = pw.MemoryImage(element);
+      pdf.addPage(
+        pw.Page(
+          build: (pw.Context context) {
+            return pw.Image(image);
+          },
+        ),
+      );
+    });
+  }
+
+  Directory output = Directory('/storage/emulated/0/Download');
+  final file = File("${output!.path}/$name.pdf");
+  final pdfBytes = await pdf.save();
+
+  await file.writeAsBytes(pdfBytes);
+  Uint8List data = await file.readAsBytes();
+
+  // Save the PDF file using FileSaver
+  final fileSaved = await FileSaver.instance.saveFile(
+    name: "$name.pdf",
+    bytes: data,
+    mimeType: MimeType.pdf,
+    filePath: output.path,
+    file: file,
+  );
+  print(fileSaved);
+  return fileSaved;
 }

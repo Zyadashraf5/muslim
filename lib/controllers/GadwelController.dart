@@ -78,7 +78,6 @@ class GadwelController extends GetxController {
     "الوسط",
     "الغرب",
     "الشرق",
-    "المركز (الشمال/ الجنوب/ الوسط/الغرب/الشرق)",
   ];
   List centerSecond = [
     "الشمال",
@@ -86,7 +85,6 @@ class GadwelController extends GetxController {
     "الوسط",
     "الغرب",
     "الشرق",
-    "المركز (الشمال/ الجنوب/ الوسط/الغرب/الشرق)",
   ];
   List centerthird = [
     "الشمال",
@@ -94,7 +92,6 @@ class GadwelController extends GetxController {
     "الوسط",
     "الغرب",
     "الشرق",
-    "المركز (الشمال/ الجنوب/ الوسط/الغرب/الشرق)",
   ];
   List centerfourth = [
     "الشمال",
@@ -102,7 +99,6 @@ class GadwelController extends GetxController {
     "الوسط",
     "الغرب",
     "الشرق",
-    "المركز (الشمال/ الجنوب/ الوسط/الغرب/الشرق)",
   ];
   Future<void> ownGadwel() async {
     ownGadawel = [];

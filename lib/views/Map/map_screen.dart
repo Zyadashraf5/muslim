@@ -44,7 +44,7 @@ class _MapScreenState extends State<MapScreen> {
           title: TextField(
             controller: searchController,
             decoration: InputDecoration(
-              hintText: 'Search for a masged',
+              hintText: 'ابحث عن مسجد',
               hintStyle: TextStyle(color: Colors.black),
               border: InputBorder.none,
             ),

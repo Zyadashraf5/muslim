@@ -41,24 +41,16 @@ class _screenshotState extends State<screenshot> {
                   children: [
                     Container(
                       color: Colors.black,
-                      height: 80,
-                      width: 100,
                       padding: const EdgeInsets.all(1),
                       child: Container(
                         color: Colors.white,
-                        padding: const EdgeInsets.all(4),
-                        child: const Column(
+                        padding: const EdgeInsets.all(5),
+                        child: Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text(":"),
-                                Text("اليوم"),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
+                                Text("${currentGadwel!.date!.split(" ")[0]}"),
                                 Text(":"),
                                 Text("التاريخ"),
                               ],
@@ -87,9 +79,20 @@ class _screenshotState extends State<screenshot> {
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
-                  "(هـ  ${currentGadwel!.month}   ) جدول العمل لشهر ( ${currentGadwel!.year}  ) لعام",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(" ${currentGadwel!.year} ",
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold)),
+                    Text("لعام"),
+                    Text(
+                      " ${currentGadwel!.month} ",
+                      style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                    Text("جدول العمل لشهر"),
+                  ],
                 ),
                 const SizedBox(
                   height: 10,
@@ -366,22 +369,34 @@ class _screenshotState extends State<screenshot> {
                 const SizedBox(
                   height: 50,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      width: 150,
-                      child: Text(
-                        "مدير أدارة حماية مرافق المساجد و خدماتها",
-                        style: TextStyle(
-                            fontSize: 11, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Text(
-                      "مشرف اللجان الميدانية",
-                      style:
-                          TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                    Column(
+                      children: [
+                        Text(
+                          "مشرف اللجان الميدانية",
+                          style: TextStyle(
+                              fontSize: 11, fontWeight: FontWeight.bold),
+                        ),
+                        currentGadwel!.signatureRole3 != null
+                            ? Container(
+                                width: 150,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black)),
+                                child: Column(
+                                  children: [
+                                    Text(currentGadwel!.signerNameRole3!),
+                                    Image.network(
+                                      currentGadwel!.signatureRole3!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Container()
+                      ],
                     )
                   ],
                 )
@@ -472,24 +487,16 @@ Widget pdf(GadwelModel currentGadwel) => Scaffold(
               children: [
                 Container(
                   color: Colors.black,
-                  height: 80,
-                  width: 100,
                   padding: const EdgeInsets.all(1),
                   child: Container(
                     color: Colors.white,
-                    padding: const EdgeInsets.all(4),
-                    child: const Column(
+                    padding: const EdgeInsets.all(5),
+                    child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(":"),
-                            Text("اليوم"),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
+                            Text("${currentGadwel!.date!.split(" ")[0]}"),
                             Text(":"),
                             Text("التاريخ"),
                           ],
@@ -796,20 +803,34 @@ Widget pdf(GadwelModel currentGadwel) => Scaffold(
             const SizedBox(
               height: 50,
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 150,
-                  child: Text(
-                    "مدير أدارة حماية مرافق المساجد و خدماتها",
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Text(
-                  "مشرف اللجان الميدانية",
-                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                Column(
+                  children: [
+                    Text(
+                      "مشرف اللجان الميدانية",
+                      style:
+                          TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                    ),
+                    currentGadwel!.signatureRole3 != null
+                        ? Container(
+                            width: 150,
+                            height: 150,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)),
+                            child: Column(
+                              children: [
+                                Text(currentGadwel!.signerNameRole3!),
+                                Image.network(
+                                  currentGadwel!.signatureRole3!,
+                                  fit: BoxFit.cover,
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container()
+                  ],
                 )
               ],
             )

@@ -32,6 +32,8 @@ class SignatureController extends GetxController {
   }
 
   Future<void> selectSignature() async {
+    isLoading = true;
+    update();
     FirebaseStorage storage = FirebaseStorage.instance;
     SharedPreferences preferences = await SharedPreferences.getInstance();
     final ssn = await preferences.get('ssn');
@@ -47,6 +49,7 @@ class SignatureController extends GetxController {
         "imagesignature": url,
       });
       urlSignature = url;
+      isLoading = false;
       update();
       HomeController homeController = Get.find();
       await homeController.myGadawel();

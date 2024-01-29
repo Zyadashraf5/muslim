@@ -49,16 +49,20 @@ class MasagedyModel {
   final String mraf8masgedController1;
   final String remembermraf8masged;
   final List<String>? users;
+  final List<String>? seenUsers;
+  List<String>? was2k;
 
 //
   String ta3dy3lakahrbaValue;
   String t3dy3lyalmyahValue;
   String t3dy3lyalkhrbaawalmyahValue;
+  String ta3dy3lmrafakValue;
 
   //
   bool ta3dy3lakahrba;
   bool t3dy3lyalmyah;
   bool t3dy3lyalkhrbaawalmyah;
+  bool ta3dy3lmrafak;
 
   String? mo5alfat;
 
@@ -76,6 +80,8 @@ class MasagedyModel {
   String? date;
 
   MasagedyModel({
+    this.seenUsers,
+    this.was2k,
     this.signedRole3,
     this.signerNameRole3,
     this.signerSSNRole3,
@@ -144,18 +150,21 @@ class MasagedyModel {
     required this.ta3dy3lakahrba,
     required this.t3dy3lyalmyah,
     required this.t3dy3lyalkhrbaawalmyah,
+    required this.ta3dy3lmrafak,
 
     //
 
     this.ta3dy3lakahrbaValue = "تعدي على الكهرباء",
     this.t3dy3lyalmyahValue = "تعدي على المياه",
     this.t3dy3lyalkhrbaawalmyahValue = "تعدي على الكهرباء والمياه",
+    this.ta3dy3lmrafakValue = "تعدي على المرافق",
   });
 
   factory MasagedyModel.fromSnapShot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return MasagedyModel(
+      was2k: List<String>.from(data["was2k"]),
       date: data['date'],
       mo5alfat: data['mo5alfat'],
       creator: data['creator'],
@@ -220,11 +229,12 @@ class MasagedyModel {
       remembermr8bmasaged: data['remembermr8bmasaged'],
       mraf8masgedController1: data['mraf8masgedController1'],
       remembermraf8masged: data['remembermraf8masged'],
-
+      seenUsers: List<String>.from(data["seenUsers"]),
       //
       ta3dy3lakahrba: data['ta3dy3lakahrba'],
       t3dy3lyalmyah: data['t3dy3lyalmyah'],
       t3dy3lyalkhrbaawalmyah: data['t3dy3lyalkhrbaawalmyah'],
+      ta3dy3lmrafak: data['ta3dy3lmrafak'],
 
 //
       userSSN: data['userSSN'],
@@ -233,6 +243,7 @@ class MasagedyModel {
   }
   Map<String, dynamic> toJson() {
     return {
+      "was2k": was2k,
       "creator": creator,
       "date": date,
       "signedRole3": signedRole3,
@@ -248,6 +259,7 @@ class MasagedyModel {
       "t3dy3lyalmyahValue": t3dy3lyalmyahValue,
       "t3dy3lyalkhrbaawalmyahValue": t3dy3lyalkhrbaawalmyahValue,
       "mo5alfat": mo5alfat,
+      "seenUsers": seenUsers,
       //
       'signed': signed,
       "namemasaged": namemasaged,
@@ -300,6 +312,7 @@ class MasagedyModel {
       "ta3dy3lakahrba": ta3dy3lakahrba,
       "t3dy3lyalmyah": t3dy3lyalmyah,
       "t3dy3lyalkhrbaawalmyah": t3dy3lyalkhrbaawalmyah,
+      "ta3dy3lmrafak": ta3dy3lmrafak,
 
       "ssn": userSSN,
       "users": users,

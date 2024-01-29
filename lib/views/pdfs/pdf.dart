@@ -22,24 +22,17 @@ class Pdf extends GetView<GadwelController> {
                 children: [
                   Container(
                     color: Colors.black,
-                    height: 80,
-                    width: 100,
                     padding: const EdgeInsets.all(1),
                     child: Container(
                       color: Colors.white,
-                      padding: const EdgeInsets.all(4),
-                      child: const Column(
+                      padding: const EdgeInsets.all(5),
+                      child: Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text(":"),
-                              Text("اليوم"),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
+                              Text(
+                                  "${controller.currentGadwel!.date!.split(" ")[0]}"),
                               Text(":"),
                               Text("التاريخ"),
                             ],
@@ -68,9 +61,19 @@ class Pdf extends GetView<GadwelController> {
               const SizedBox(
                 height: 10,
               ),
-              Text(
-                "(هـ  ${controller.currentGadwel!.month}   ) جدول العمل لشهر ( ${controller.currentGadwel!.year}  ) لعام",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(" ${controller.currentGadwel!.year} ",
+                      style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                  Text("لعام"),
+                  Text(
+                    " ${controller.currentGadwel!.month} ",
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
+                  Text("جدول العمل لشهر"),
+                ],
               ),
               const SizedBox(
                 height: 10,
@@ -352,31 +355,6 @@ class Pdf extends GetView<GadwelController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: 150,
-                    child: Column(
-                      children: [
-                        Text(
-                          "مدير أدارة حماية مرافق المساجد و خدماتها",
-                          style: TextStyle(
-                              fontSize: 11, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        controller.currentGadwel!.signatureRole2 != null
-                            ? Container(
-                                width: 150,
-                                height: 150,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black)),
-                                child: Image.network(
-                                  controller.currentGadwel!.signatureRole2!,
-                                  fit: BoxFit.cover,
-                                ),
-                              )
-                            : Container()
-                      ],
-                    ),
-                  ),
                   Column(
                     children: [
                       Text(
@@ -390,9 +368,15 @@ class Pdf extends GetView<GadwelController> {
                               height: 150,
                               decoration: BoxDecoration(
                                   border: Border.all(color: Colors.black)),
-                              child: Image.network(
-                                controller.currentGadwel!.signatureRole3!,
-                                fit: BoxFit.cover,
+                              child: Column(
+                                children: [
+                                  Text(controller
+                                      .currentGadwel!.signerNameRole3!),
+                                  Image.network(
+                                    controller.currentGadwel!.signatureRole3!,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ],
                               ),
                             )
                           : Container()

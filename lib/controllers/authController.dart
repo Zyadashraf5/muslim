@@ -161,9 +161,12 @@ class AuthControler extends GetxController {
   }
 
   Future<UserModel> getUser(String ssn) async {
+    isLoading = true;
     DocumentSnapshot<Map<String, dynamic>> data =
         await fb.collection("users").doc(ssn).get();
     UserModel user = UserModel.fromSnapShot(data);
+    role = int.parse(user.role);
+    isLoading = false;
     update();
     return user;
   }
@@ -197,7 +200,7 @@ class AuthControler extends GetxController {
   @override
   Future<void> onInit() async {
     await getssn();
-    user = await getUser(ssn!);
+    if (ssn != null) user = await getUser(ssn!);
     update();
 
     super.onInit();

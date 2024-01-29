@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -33,10 +34,14 @@ CheckBoxState Infringement1 =
     CheckBoxState(title: "تعدي على المياه", other: true);
 CheckBoxState Infringement2 =
     CheckBoxState(title: "تعدي على الكهرباء والمياه", other: true);
+
+CheckBoxState Infringement3 =
+    CheckBoxState(title: "تعدي علي المرافق", other: true);
 List<CheckBoxState> titles = [
   Infringement,
   Infringement1,
   Infringement2,
+  Infringement3,
 ];
 
 class MasgedController extends GetxController {
@@ -55,7 +60,7 @@ class MasgedController extends GetxController {
   List<MasagedyModel> allSigned2WayMasaged = [];
   File? selectedImagegalley;
   var files;
-  File file = File('');
+  List<File> file = [];
   List<MasagedyModel> masged = [];
   List<MasagedyModel> allSignedMasaged = [];
   String? mo5alfat = "";
@@ -63,7 +68,7 @@ class MasgedController extends GetxController {
   var seletedtaker;
   DateTime? selectedDate;
   MasagedyModel? currentMasged;
-
+  List<String>? wasa2k;
   LatLng? selectedLocation;
   int words = 0;
   bool isLoading = false;
@@ -310,6 +315,7 @@ class MasgedController extends GetxController {
     Infringement,
     Infringement1,
     Infringement2,
+    Infringement3,
   ];
 //////////////////////////////////////////////////////////////
 
@@ -333,22 +339,18 @@ class MasgedController extends GetxController {
         .get();
 
     UserModel user = UserModel.fromSnapShot(userSnap);
-    if (int.parse(user.role) == 3 || int.parse(user.role) == 2) {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('masgedy')
-          .where(Filter.and(Filter("users", arrayContains: ssn.toString()),
-              Filter("signedRole${user.role}", isEqualTo: false)))
-          .get();
-      allMasaged =
-          snapshot.docs.map((e) => MasagedyModel.fromSnapShot(e)).toList();
-    } else {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('masgedy')
-          .where("users", arrayContains: ssn.toString())
-          .get();
-      allMasaged =
-          snapshot.docs.map((e) => MasagedyModel.fromSnapShot(e)).toList();
-    }
+
+    final snapshot = await FirebaseFirestore.instance
+        .collection('masgedy')
+        .where(
+          Filter("users", arrayContains: ssn.toString()),
+        )
+        .get();
+    allMasaged = snapshot.docs
+        .where((doc) => !doc['seenUsers'].contains(ssn.toString()))
+        .map((e) => MasagedyModel.fromSnapShot(e))
+        .toList();
+
     update();
   }
 
@@ -363,40 +365,51 @@ class MasgedController extends GetxController {
         .get();
 
     UserModel user = UserModel.fromSnapShot(userSnap);
-    if (int.parse(user.role) == 3 || int.parse(user.role) == 2) {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('masgedy')
-          .where(Filter.and(Filter("users", arrayContains: ssn.toString()),
-              Filter("signedRole${user.role}", isEqualTo: true)))
-          .get();
-      allSignedMasaged =
-          snapshot.docs.map((e) => MasagedyModel.fromSnapShot(e)).toList();
-    } else {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('masgedy')
-          .where(Filter.and(
-              Filter("signedRole2", isEqualTo: true),
-              Filter("signedRole3", isEqualTo: true),
-              Filter("users", arrayContains: ssn.toString())))
-          .get();
-      allSignedMasaged =
-          snapshot.docs.map((e) => MasagedyModel.fromSnapShot(e)).toList();
-    }
+
+    final snapshot = await FirebaseFirestore.instance
+        .collection('masgedy')
+        .where(Filter("seenUsers", arrayContains: ssn.toString()))
+        .get();
+    allSignedMasaged =
+        snapshot.docs.map((e) => MasagedyModel.fromSnapShot(e)).toList();
+    searchMasaged = allSignedMasaged;
 
     update();
+  }
+
+  Future<void> archiveDoc(MasagedyModel masged) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      final ssn = await preferences.get('ssn');
+      final userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(ssn.toString())
+          .get();
+
+      UserModel user = await UserModel.fromSnapShot(userSnap);
+      await FirebaseFirestore.instance
+          .collection('masgedy')
+          .doc(masged.namemasaged.toString())
+          .update({
+        'seenUsers': FieldValue.arrayUnion([ssn.toString()]),
+      });
+
+      update();
+      print('تم التعديل الجدول');
+    } catch (e) {
+      print('غطاء في تعديل : $e');
+    }
   }
 
   Future<void> getAllSigned2Ways() async {
     allSigned2WayMasaged = [];
     final snapshot = await FirebaseFirestore.instance
         .collection('masgedy')
-        .where(Filter.and(
-          Filter("signedRole2", isEqualTo: true),
-          Filter("signedRole3", isEqualTo: true),
-        ))
+        .where(Filter("seenUsers", arrayContains: ssn.toString()))
         .get();
-    allSigned2WayMasaged =
+    allSignedMasaged =
         snapshot.docs.map((e) => MasagedyModel.fromSnapShot(e)).toList();
+    allSigned2WayMasaged = allSignedMasaged;
     searchMasaged = allSigned2WayMasaged;
     update();
   }
@@ -414,20 +427,35 @@ class MasgedController extends GetxController {
       version: QrVersions.auto,
       gapless: false,
     ).toImageData(300);
-    final Reference storageReference = FirebaseStorage.instance.ref();
-    final qrRef = await storageReference.child('qrcodes/${name}');
-    await qrRef.putData(qrImage!.buffer.asUint8List());
+    if (photo != null) {
+      final Reference storageReference = FirebaseStorage.instance.ref();
+      final qrRef = await storageReference.child('qrcodes/${name}');
+      await qrRef.putData(qrImage!.buffer.asUint8List());
 
-    final Reference photoRef = await storageReference.child('photos/${name}');
-    await photoRef.putFile(photo);
+      final Reference photoRef = await storageReference.child('photos/${name}');
+      await photoRef.putFile(photo);
+    }
     String imageLink = '';
 
+    List<String> wasa2k = [];
     if (selectedImagegalley != null) {
       final Reference storageReference = FirebaseStorage.instance.ref();
       final photoRef = await storageReference
           .child('masged/${selectedImagegalley!.path.split('/').last}');
       await photoRef.putFile(selectedImagegalley!);
       imageLink = await photoRef.getDownloadURL();
+      wasa2k.add(imageLink);
+    }
+
+    if (file.length > 0) {
+      await Future.forEach(file, (current) async {
+        final Reference storageReference = FirebaseStorage.instance.ref();
+        final photoRef = await storageReference
+            .child('masged/${current.path.split('/').last}');
+        await photoRef.putFile(current);
+        final currentImage = await photoRef.getDownloadURL();
+        wasa2k.add(currentImage);
+      });
     }
 
     MasagedyModel masged = MasagedyModel(
@@ -485,13 +513,18 @@ class MasgedController extends GetxController {
       mraf8masgedController1: mraf8masgedController1.text,
       remembermraf8masged: remembermraf8masgedController1.text,
       ta3dy3lakahrba: Infringement.value,
+      ta3dy3lmrafak: Infringement3.value,
       t3dy3lyalmyah: Infringement1.value,
+
       t3dy3lyalkhrbaawalmyah: Infringement2.value,
       ta3dy3lakahrbaValue: Infringement.otherValue,
       t3dy3lyalmyahValue: Infringement1.otherValue,
       t3dy3lyalkhrbaawalmyahValue: Infringement2.otherValue,
+      ta3dy3lmrafakValue: Infringement3.otherValue,
+
       signedRole2: false,
       signedRole3: false,
+      was2k: wasa2k,
 
       qr: namemasagedController.text,
     );

@@ -39,8 +39,10 @@ class taskes extends GetView<taskescontroller> {
                   right: 0,
                 ),
                 Positioned(
-                  top: 50,
-                  right: 30,
+                  top: 40,
+                  right: 35,
+                  left: 35,
+                  bottom: 40,
                   child: SingleChildScrollView(
                     child: Center(
                       child: Column(

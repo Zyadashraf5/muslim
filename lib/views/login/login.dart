@@ -74,7 +74,7 @@ class _loginState extends State<login> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            "رقم الهويه ",
+                            "رقم الهوية ",
                             style: TextStyle(fontSize: 20, color: Colors.black),
                           ),
                           Icon(
@@ -92,6 +92,10 @@ class _loginState extends State<login> {
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: Colors.grey,
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: BorderSide.none,

@@ -46,10 +46,10 @@ class Home extends GetView<HomeController> {
                 right: 0,
               ),
               Positioned(
-                top: 80,
-                right: 0,
-                left: 0,
-                bottom: 0,
+                top: 40,
+                right: 35,
+                left: 35,
+                bottom: 40,
                 child: SingleChildScrollView(
                   child: Center(
                     child: Column(
@@ -178,7 +178,33 @@ class Home extends GetView<HomeController> {
                                     color: Colors.green.shade300),
                                 child: Center(
                                   child: Text(
-                                    "share ",
+                                    "ارسال",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "TajawalMedium",
+                                        fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                controller.listShown = false;
+                                controller.update();
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 200,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.red.shade300),
+                                child: Center(
+                                  child: Text(
+                                    "الغاء",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
@@ -281,7 +307,33 @@ class Home extends GetView<HomeController> {
                                     color: Colors.green.shade300),
                                 child: Center(
                                   child: Text(
-                                    "share ",
+                                    "ارسال",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "TajawalMedium",
+                                        fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                controller.listShown2 = false;
+                                controller.update();
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 200,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.red.shade300),
+                                child: Center(
+                                  child: Text(
+                                    "الغاء",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
@@ -319,8 +371,8 @@ class inspectiontours extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           child: Container(
-            width: 330,
-            height: 200,
+            width: 365,
+            height: 180,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
@@ -335,13 +387,14 @@ class inspectiontours extends StatelessWidget {
               color: Colors.white,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Center(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        " الجولات التقديه  ",
+                        " الجولات التفقديه  ",
                         style: TextStyle(
                             color: Colors.green.shade700,
                             fontWeight: FontWeight.bold,
@@ -403,7 +456,7 @@ class inspectiontours extends StatelessWidget {
                           ));
                         },
                       ),
-                      authControler.role != 2 && authControler.role != 3
+                      authControler.role != 2
                           ? Container()
                           : IconButton(
                               icon: Icon(
@@ -462,6 +515,19 @@ class inspectiontours extends StatelessWidget {
                                 //TODO: edit gadwel
                               },
                             ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.archive,
+                          size: 30,
+                          color: Colors.green,
+                        ),
+                        onPressed: () async {
+                          await context.archiveDoc(masgedModel);
+                          HomeController homeController =
+                              Get.put(HomeController());
+                          await homeController.getAllMasaged();
+                        },
+                      ),
                     ],
                     mainAxisSize: MainAxisSize.min,
                   ),
@@ -502,8 +568,8 @@ class gadwal extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           child: Container(
-            width: 330,
-            height: 200,
+            width: 365,
+            height: 160,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
@@ -518,10 +584,11 @@ class gadwal extends StatelessWidget {
               color: Colors.white,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Center(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
                         "جدول الجولات",
@@ -577,7 +644,7 @@ class gadwal extends StatelessWidget {
                           Get.to(Pdf());
                         },
                       ),
-                      authControler.role != 2 && authControler.role != 3
+                      authControler.role != 3
                           ? Container()
                           : IconButton(
                               icon: Icon(
@@ -638,6 +705,20 @@ class gadwal extends StatelessWidget {
                                 Get.to(editgadwel(gadwelModel: gadwelModel));
                               },
                             ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.archive,
+                          size: 30,
+                          color: Colors.green,
+                        ),
+                        onPressed: () async {
+                          await controller
+                              .archiveDoc(gadwelModel.year + gadwelModel.month);
+                          HomeController homeController =
+                              Get.put(HomeController());
+                          await homeController.myGadawel();
+                        },
+                      ),
                     ],
                     mainAxisSize: MainAxisSize.min,
                   ),

@@ -16,7 +16,8 @@ import '../loading/loading.dart';
 import '../movebar/bottom_move.dart';
 
 class signature extends GetView<SignatureController> {
-  const signature({super.key});
+  signature({super.key});
+
   @override
   Widget build(BuildContext context) {
     Get.put(SignatureController());
@@ -149,34 +150,6 @@ class signature extends GetView<SignatureController> {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () async {
-                                  // Function to delete the image
-
-                                  controller.selectedimageSignature = null;
-                                  controller.update();
-                                },
-                                child: Container(
-                                  height: 50,
-                                  width: 380,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.red.shade300),
-                                  child: Center(
-                                    child: Text(
-                                      "خذف التوقيع ",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: "robot",
-                                          fontSize: 18),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () async {
-                                  // Function to delete the image
                                   await controller.selectSignature();
                                   controller.update();
                                 },

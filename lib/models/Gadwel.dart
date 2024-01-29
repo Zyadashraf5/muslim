@@ -33,6 +33,7 @@ class GadwelModel {
   String numbermra8bThird;
   String numbermra8bFourth;
   List<String>? users;
+  List<String>? seenUsers;
   String? creator;
   bool? signedRole3;
   bool? signedRole2;
@@ -45,6 +46,7 @@ class GadwelModel {
   String? date;
 
   GadwelModel({
+    this.seenUsers,
     this.users,
     this.date,
     this.signedRole3,
@@ -90,6 +92,7 @@ class GadwelModel {
   });
   toJson() {
     return {
+      "seenUsers": seenUsers,
       "date": date,
       "signedRole3": signedRole3,
       "signerNameRole3": signerNameRole3,
@@ -141,6 +144,7 @@ class GadwelModel {
     return GadwelModel(
       creator: data["creator"],
       date: data["date"],
+      seenUsers: List<String>.from(data["seenUsers"]),
       users: List<String>.from(data["users"]),
       al3dw: data["al3dw"],
       year: data["year"],

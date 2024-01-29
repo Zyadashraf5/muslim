@@ -74,7 +74,7 @@ class Infringements extends GetView<MasgedController> {
                   child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
-                        children: List.generate(3, (index) {
+                        children: List.generate(4, (index) {
                           return Column(
                             children: [
                               CheckboxListTile(

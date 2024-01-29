@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../controllers/Asnhlak3alyController.dart';
 import '../../controllers/masgedController.dart';
@@ -122,7 +123,7 @@ class documents extends GetView<MasgedController> {
                         : Container(),
                     InkWell(
                       onTap: () async {
-                        controller.selectedImagegalley = await fromFileImage();
+                        controller.file = await fromFileImage();
                         controller.update();
                       },
                       child: Container(
@@ -234,15 +235,6 @@ class documents extends GetView<MasgedController> {
                     SizedBox(
                       height: 40,
                     ),
-                    controller.file != null
-                        ? Container(
-                            width: 300,
-                            child: Center(
-                                child: Text(controller.file
-                                    .toString()
-                                    .split('/')
-                                    .last)))
-                        : Container(),
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: GestureDetector(
@@ -279,13 +271,12 @@ class documents extends GetView<MasgedController> {
   }
 }
 
-Future<File> fromFileImage() async {
+Future<List<File>> fromFileImage() async {
   print("fromFileImage");
-  final returnedImage =
-      await ImagePicker().pickImage(source: ImageSource.gallery);
-  if (returnedImage == null) return File("");
+  final returnedImage = await ImagePicker().pickMultiImage();
 
-  return File(returnedImage.path);
+  if (returnedImage == null) return [];
+  return returnedImage.map((e) => File(e.path)).toList();
 }
 
 Future<File> fromCameraImage() async {
@@ -297,24 +288,34 @@ Future<File> fromCameraImage() async {
   return File(returnedImage.path);
 }
 
-Future<File> openFileExplorer() async {
+Future<List<File>> openFileExplorer() async {
   try {
     // Open file picker
+    PermissionStatus permissionStatus = await Permission.storage.request();
+
+    if (permissionStatus.isGranted) {
+      print("granted");
+    } else {
+      print("not granted");
+    }
+
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf', 'doc', 'docx'],
+      allowMultiple: true,
     );
 
     if (result != null) {
-      PlatformFile file = result.files.single;
-      File filePath = File(file.path ?? 'No file path found');
-      return filePath;
-      // Here, you can use the file path to perform further operations like uploading.
+      List<PlatformFile> files = result.files;
+      List<File> filePaths =
+          files.map((file) => File(file.path ?? 'No file path found')).toList();
+      return filePaths;
+      // Here, you can use the file paths to perform further operations like uploading.
       // Upload logic can be implemented using other packages or APIs.
     }
-    return File("");
+    return [];
   } catch (e) {
     print('File picking failed: $e');
-    return File("");
+    return [];
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:muslimapp/controllers/GadwelController.dart';
+import 'package:muslimapp/controllers/authController.dart';
 import 'package:muslimapp/controllers/homeController.dart';
 import 'package:muslimapp/models/Gadwel.dart';
+import 'package:muslimapp/views/Gadwel/editgadwel.dart';
 import 'package:muslimapp/views/pdfs/pdf.dart';
 import 'package:muslimapp/views/pdfs/pdfScreenShot.dart';
 
@@ -45,6 +47,7 @@ class SagelGadewelPage extends StatelessWidget {
           Positioned(
             top: 300,
             right: 10,
+            left: 10,
             bottom: 0,
             child: GetBuilder<HomeController>(
               init: HomeController(), // Replace with your own controller
@@ -72,7 +75,7 @@ class gadwal extends StatelessWidget {
     super.key,
     required this.gadwelModel,
   });
-
+  AuthControler authControler = Get.put(AuthControler());
   GadwelModel gadwelModel;
   @override
   Widget build(BuildContext context) {
@@ -81,8 +84,8 @@ class gadwal extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           child: Container(
-            width: 330,
-            height: 200,
+            width: 365,
+            height: 160,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
@@ -97,25 +100,26 @@ class gadwal extends StatelessWidget {
               color: Colors.white,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Center(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
                         "جدول الجولات",
                         style: TextStyle(
                             color: Colors.green.shade700,
                             fontWeight: FontWeight.bold,
-                            fontFamily: "robot",
+                            fontFamily: "TajawalMedium",
                             fontSize: 18),
                       ),
                       Text(
-                        "تاريخ : 2023/10/10",
+                        "تاريخ : ${gadwelModel!.year}/${gadwelModel!.month}",
                         style: TextStyle(
                             color: Colors.green.shade700,
                             fontWeight: FontWeight.bold,
-                            fontFamily: "robot",
+                            fontFamily: "TajawalMedium",
                             fontSize: 18),
                       ),
                     ],
@@ -127,6 +131,20 @@ class gadwal extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      gadwelModel.creator != authControler.ssn
+                          ? Container()
+                          : IconButton(
+                              icon: Icon(
+                                Icons.delete,
+                                size: 30,
+                                color: Colors.green,
+                              ),
+                              onPressed: () async {
+                                await controller.deleteGadwelDocument(
+                                    gadwelModel.year + gadwelModel.month);
+                                controller.update();
+                              },
+                            ),
                       IconButton(
                         icon: Icon(
                           Icons.visibility,
@@ -137,8 +155,37 @@ class gadwal extends StatelessWidget {
                           GadwelController gadwelController =
                               Get.put(GadwelController());
                           gadwelController.currentGadwel = gadwelModel;
+
                           gadwelController.update();
                           Get.to(Pdf());
+                        },
+                      ),
+                      authControler.role != 3
+                          ? Container()
+                          : IconButton(
+                              icon: Icon(
+                                Icons.edit,
+                                size: 30,
+                                color: Colors.green,
+                              ),
+                              onPressed: () async {
+                                GadwelController gadwelController =
+                                    Get.put(GadwelController());
+                                await gadwelController.signDoc(
+                                    gadwelModel.year + gadwelModel.month);
+                              },
+                            ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.share,
+                          size: 30,
+                          color: Colors.green,
+                        ),
+                        onPressed: () {
+                          controller.selectedDoc =
+                              gadwelModel.year + gadwelModel.month;
+                          controller.listShown = true;
+                          controller.update();
                         },
                       ),
                       IconButton(
@@ -150,19 +197,30 @@ class gadwal extends StatelessWidget {
                         onPressed: () async {
                           GadwelController gadwelController =
                               Get.put(GadwelController());
-                          final currentMonth = DateTime.now().month;
-                          final currentYear = DateTime.now().year;
-                          gadwelController.currentGadwel =
-                              await gadwelController.getCurrentMonth(
-                                  currentMonth.toString(),
-                                  currentYear.toString());
-                          print("here");
+                          gadwelController.currentGadwel = gadwelModel;
                           gadwelController.update();
 
                           Get.to(screenshot(
                               currentGadwel: gadwelController.currentGadwel!));
                         },
                       ),
+                      gadwelModel.creator != authControler.ssn
+                          ? Container()
+                          : IconButton(
+                              icon: Icon(
+                                Icons.edit_document,
+                                size: 30,
+                                color: Colors.green,
+                              ),
+                              onPressed: () {
+                                GadwelController gadwelController =
+                                    Get.put(GadwelController());
+                                gadwelController.currentGadwel = gadwelModel;
+
+                                gadwelController.update();
+                                Get.to(editgadwel(gadwelModel: gadwelModel));
+                              },
+                            ),
                     ],
                     mainAxisSize: MainAxisSize.min,
                   ),

@@ -60,8 +60,10 @@ class profile extends GetView<AuthControler> {
                         right: 0,
                       ),
                       Positioned(
-                        top: 20,
+                        top: 40,
                         right: 35,
+                        left: 35,
+                        bottom: 40,
                         child: Center(
                           child: Column(
                             children: [
@@ -100,18 +102,19 @@ class profile extends GetView<AuthControler> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Expanded(
-                                      flex: 4,
-                                      child: Text(
-                                        //controller.user!.roleName,
-                                        controller.user!.name,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontFamily: "TajawalMedium",
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
+                                        flex: 4,
+                                        child: controller.user != null
+                                            ? Text(
+                                                //controller.user!.roleName,
+                                                controller.user!.name,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontFamily: "TajawalMedium",
+                                                  color: Colors.black,
+                                                ),
+                                              )
+                                            : CircularProgressIndicator()),
                                     Expanded(
                                       flex: 1,
                                       child: Icon(
@@ -159,7 +162,7 @@ class profile extends GetView<AuthControler> {
                                         },
                                       ),
                                     if (int.parse(controller.user!.role) == 3)
-                                      customIconWithText("مهام مشرف اللجنه ",
+                                      customIconWithText("مهام مشرف اللجان  ",
                                           "assets/task.png", () {
                                         Get.to(DutyMember());
                                       }),
@@ -187,7 +190,7 @@ class profile extends GetView<AuthControler> {
                                         int.parse(controller.user!.role) == 2 ||
                                         int.parse(controller.user!.role) == 3)
                                       customIconWithText(
-                                        "المخالفات\n والتعديات",
+                                        "الملاحظات\n والتعديات",
                                         "assets/mok.png",
                                         () {
                                           Get.to(t3dyatwalm5alfat());
@@ -195,7 +198,7 @@ class profile extends GetView<AuthControler> {
                                       ),
                                     if (int.parse(controller.user!.role) == 2)
                                       customIconWithText(
-                                          "مشرف اللجنه ", "assets/profile.png",
+                                          " مشرف اللجان ", "assets/profile.png",
                                           () async {
                                         AuthControler authControler =
                                             Get.put(AuthControler());
