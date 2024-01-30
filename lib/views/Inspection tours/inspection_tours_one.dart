@@ -6,6 +6,7 @@ import 'package:getwidget/getwidget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:muslimapp/routes/app_pages.dart';
 import 'package:muslimapp/views/Inspection%20tours/Data_masaged.dart';
+import 'package:muslimapp/views/Inspection%20tours/esthlak.dart';
 import 'package:muslimapp/views/Inspection%20tours/malfat.dart';
 import 'package:muslimapp/views/Inspection%20tours/documents.dart';
 import 'package:muslimapp/views/Inspection%20tours/location.dart';
@@ -144,6 +145,17 @@ class InspectionToursOne extends GetView<MasgedController> {
                                   ? Colors.green
                                   : Colors.grey),
                           item(
+                              "استهلاك عالي",
+                              width: 35,
+                              height: 50,
+                              Icons.arrow_back_ios, () {
+                            Get.to(esthlak());
+                          },
+                              "assets/qweerr.png",
+                              controller.esthlak!.isNotEmpty
+                                  ? Colors.green
+                                  : Colors.grey),
+                          item(
                               "الوثائق",
                               width: 35,
                               height: 50,
@@ -192,6 +204,38 @@ class InspectionToursOne extends GetView<MasgedController> {
                             padding: const EdgeInsets.all(16.0),
                             child: GestureDetector(
                               onTap: () async {
+                                if (!controller.isSelected) {
+                                  SnackBar snackBar = SnackBar(
+                                    content: Text("الرجاء الموافقة على الشروط"),
+                                    backgroundColor: Colors.red,
+                                    duration: Duration(seconds: 2),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                  return;
+                                } else if (controller
+                                        .namemasagedController.text ==
+                                    "") {
+                                  SnackBar snackBar = SnackBar(
+                                    content: Text("الرجاء ادخال بيانات المسجد"),
+                                    backgroundColor: Colors.red,
+                                    duration: Duration(seconds: 2),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                  return;
+                                } else if (controller.location ==
+                                    LatLng(0, 0)) {
+                                  SnackBar snackBar = SnackBar(
+                                    content: Text("الرجاء ادخال موقع المسجد"),
+                                    backgroundColor: Colors.red,
+                                    duration: Duration(seconds: 2),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                  return;
+                                }
+
                                 controller.isLoading = true;
                                 controller.update();
                                 await controller.createMasged(
@@ -201,23 +245,15 @@ class InspectionToursOne extends GetView<MasgedController> {
                                     context);
                                 controller.isLoading = false;
                                 controller.update();
-                                SnackBar snackBar = SnackBar(
-                                  content: Text("تم ارسال البيانات بنجاح"),
-                                  backgroundColor: Colors.green,
-                                  duration: Duration(seconds: 2),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                Future.delayed(Duration(seconds: 2), () {
-                                  Get.toNamed(Routes.home);
-                                });
                               },
                               child: Container(
                                 height: 40,
                                 width: 300,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(40),
-                                    color: Colors.grey.shade300),
+                                    color: controller.isSelected
+                                        ? Colors.green.shade300
+                                        : Colors.red.shade300),
                                 child: const Center(
                                   child: Text(
                                     "ارسال ",

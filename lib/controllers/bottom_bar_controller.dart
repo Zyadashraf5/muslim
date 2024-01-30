@@ -35,7 +35,7 @@ class BottomBarController extends GetxController {
         Get.toNamed(Routes.home);
         break;
       case 2:
-        await masgedController.getAllSigned2Ways();
+        await masgedController.getMasgedOnMap();
         Get.to(MapScreen());
         break;
       case 1:

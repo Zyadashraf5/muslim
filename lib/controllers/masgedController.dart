@@ -13,6 +13,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:muslimapp/controllers/qrcodeController.dart';
 import 'package:muslimapp/models/Masagedy.dart';
 import 'package:muslimapp/models/UserModel.dart';
+import 'package:muslimapp/routes/app_pages.dart';
 import 'package:pdf/widgets.dart';
 
 import 'package:qr_flutter/qr_flutter.dart';
@@ -63,6 +64,7 @@ class MasgedController extends GetxController {
   List<File> file = [];
   List<MasagedyModel> masged = [];
   List<MasagedyModel> allSignedMasaged = [];
+  List<MasagedyModel> allMasagedOnMap = [];
   String? mo5alfat = "";
   bool isSelected = false;
   var seletedtaker;
@@ -78,7 +80,7 @@ class MasgedController extends GetxController {
   File? _selectedImage;
   File? selectedSak;
   var selectedOption;
-
+  String esthlak = "";
   String? ssn;
 
   TimeOfDay? dateTime;
@@ -401,6 +403,25 @@ class MasgedController extends GetxController {
     }
   }
 
+  Future<void> getMasgedOnMap() async {
+    allMasagedOnMap = [];
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    final ssn = await preferences.get('ssn');
+    final userSnap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(ssn.toString())
+        .get();
+
+    UserModel user = UserModel.fromSnapShot(userSnap);
+
+    final snapshot =
+        await FirebaseFirestore.instance.collection('masgedy').get();
+    allMasagedOnMap =
+        snapshot.docs.map((e) => MasagedyModel.fromSnapShot(e)).toList();
+
+    update();
+  }
+
   Future<void> getAllSigned2Ways() async {
     allSigned2WayMasaged = [];
     final snapshot = await FirebaseFirestore.instance
@@ -421,6 +442,14 @@ class MasgedController extends GetxController {
       SharedPreferences preferences = await SharedPreferences.getInstance();
 
       userSSN = await preferences.get('ssn');
+    }
+    final exist =
+        await FirebaseFirestore.instance.collection('masgedy').doc(name).get();
+    if (exist.exists) {
+      creatingLoading = false;
+      update();
+      Get.snackbar('خطأ', 'هذا المسجد موجود بالفعل');
+      return;
     }
     final qrImage = await QrPainter(
       data: name,
@@ -464,6 +493,7 @@ class MasgedController extends GetxController {
       mo5alfat: mo5alfat,
       users: [userSSN],
       signed: false,
+      esthlak3aly: esthlak,
       userSSN: userSSN,
       location: location.toString(), //78887,23432
       image: imageLink,
@@ -534,6 +564,10 @@ class MasgedController extends GetxController {
         .set(masged.toJson());
     creatingLoading = false;
     update();
+    Get.snackbar('تم', 'تم اضافة المسجد بنجاح');
+    Future.delayed(Duration(seconds: 2), () {
+      Get.toNamed(Routes.home);
+    });
   }
 
   Future<void> shareDoc(String docID, userSSN) async {

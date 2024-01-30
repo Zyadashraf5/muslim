@@ -30,8 +30,8 @@ class _MapScreenState extends State<MapScreen> {
   void didChangeDependencies() async {
     MasgedController masgedController = Get.put(MasgedController());
 
-    masaged = masgedController.allSigned2WayMasaged;
-    filteredMasaged = masgedController.allSigned2WayMasaged;
+    masaged = masgedController.allMasagedOnMap;
+    filteredMasaged = masgedController.allMasagedOnMap;
 
     super.didChangeDependencies();
   }

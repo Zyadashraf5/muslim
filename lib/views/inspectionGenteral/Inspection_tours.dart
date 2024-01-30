@@ -113,57 +113,6 @@ class InspectionTours extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {
-                  Get.to(InspectionToursOneAsnhlak3aly());
-                },
-                child: Column(
-                  children: [
-                    Container(
-                      width: 330,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 7,
-                            blurRadius: 10,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                        border: Border.all(
-                            color: Colors.green.shade700, width: 4.0),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Icon(
-                            Icons.arrow_back_ios,
-                            size: 30,
-                            color: Colors.grey,
-                          ),
-                          Text(
-                            "استهلاك عالي",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontFamily: "TajawalMedium",
-                                color: Colors.black),
-                          ),
-                          Image.asset(
-                            "assets/asdf.png",
-                            width: 40,
-                            height: 60,
-                            color: Colors.green,
-                          ),
-                        ],
-                        mainAxisSize: MainAxisSize.min,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              InkWell(
                 onTap: () {},
                 child: Column(
                   children: [

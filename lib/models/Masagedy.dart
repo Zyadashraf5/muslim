@@ -51,6 +51,7 @@ class MasagedyModel {
   final List<String>? users;
   final List<String>? seenUsers;
   List<String>? was2k;
+  String? esthlak3aly;
 
 //
   String ta3dy3lakahrbaValue;
@@ -80,6 +81,7 @@ class MasagedyModel {
   String? date;
 
   MasagedyModel({
+    this.esthlak3aly,
     this.seenUsers,
     this.was2k,
     this.signedRole3,
@@ -165,6 +167,7 @@ class MasagedyModel {
     final data = document.data()!;
     return MasagedyModel(
       was2k: List<String>.from(data["was2k"]),
+      esthlak3aly: data['esthlak3aly'],
       date: data['date'],
       mo5alfat: data['mo5alfat'],
       creator: data['creator'],
@@ -243,6 +246,7 @@ class MasagedyModel {
   }
   Map<String, dynamic> toJson() {
     return {
+      "esthlak3aly": esthlak3aly,
       "was2k": was2k,
       "creator": creator,
       "date": date,

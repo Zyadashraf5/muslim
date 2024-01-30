@@ -340,6 +340,24 @@ class _screenshotState extends State<screenshotMasged> {
                           ],
                         ),
                       ),
+                      masgedModel.esthlak3aly != null
+                          ? Align(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "${masgedModel.esthlak3aly}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  ),
+                                  Text(":"),
+                                  Text("الاستهلاك"),
+                                ],
+                              ),
+                            )
+                          : Container(),
                       const SizedBox(
                         height: 50,
                       ),
