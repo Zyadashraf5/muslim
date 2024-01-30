@@ -239,13 +239,15 @@ class PdfInspection extends GetView<MasgedController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          "${masgedModel.t3dy3lyalkhrbaawalmyah ? masgedModel.t3dy3lyalkhrbaawalmyahValue : masgedModel.ta3dy3lakahrba ? masgedModel.ta3dy3lakahrbaValue : masgedModel.t3dy3lyalmyah ? masgedModel.ta3dy3lakahrbaValue : ""}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 12),
-                        ),
-                        Text(":"),
-                        Text("التعديات")
+                        Container(
+                          width: 350,
+                          child: Text(
+                            "التعديات : ${masgedModel.t3dy3lyalkhrbaawalmyah ? masgedModel.t3dy3lyalkhrbaawalmyahValue : masgedModel.ta3dy3lakahrba ? masgedModel.ta3dy3lakahrbaValue : masgedModel.t3dy3lyalmyah ? masgedModel.ta3dy3lakahrbaValue : ""}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                            textAlign: TextAlign.right,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -257,13 +259,12 @@ class PdfInspection extends GetView<MasgedController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          "${masgedModel.mo5alfat}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 12),
-                        ),
-                        Text(":"),
-                        Text("الملاحظات"),
+                        Container(
+                            width: 350,
+                            child: Text("الملاحظات: ${masgedModel.mo5alfat}",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                                textAlign: TextAlign.right)),
                       ],
                     ),
                   ),

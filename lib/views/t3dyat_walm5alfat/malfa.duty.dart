@@ -102,7 +102,7 @@ class Malfat_duty extends GetView<AuthControler> {
                             int.parse(controller.user!.role) == 2 ||
                             int.parse(controller.user!.role) == 3
                         ? malfadutybottons(
-                            "بنرات بها حسابات بنكية  ",
+                            "بنر يضمن حساب بنكي ايبان  ",
                           )
                         : SizedBox(),
                     int.parse(controller.user!.role) == 1 ||
@@ -169,7 +169,7 @@ class Malfat_duty extends GetView<AuthControler> {
                             int.parse(controller.user!.role) == 2 ||
                             int.parse(controller.user!.role) == 3
                         ? malfadutybottons(
-                            " القراءة النجدية.  ",
+                            " القراءة النجدية",
                           )
                         : SizedBox(),
 
