@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:muslimapp/models/Masagedy.dart';
+import 'package:hemaya/models/Masagedy.dart';
 
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:barcode/barcode.dart';

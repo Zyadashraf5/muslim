@@ -1,16 +1,17 @@
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:muslimapp/routes/app_pages.dart';
-import 'package:muslimapp/views/Inspection%20tours/Data_masaged.dart';
-import 'package:muslimapp/views/Inspection%20tours/esthlak.dart';
-import 'package:muslimapp/views/Inspection%20tours/malfat.dart';
-import 'package:muslimapp/views/Inspection%20tours/documents.dart';
-import 'package:muslimapp/views/Inspection%20tours/location.dart';
-import 'package:muslimapp/views/loading/loading.dart';
+import 'package:hemaya/routes/app_pages.dart';
+import 'package:hemaya/views/Inspection%20tours/Data_masaged.dart';
+import 'package:hemaya/views/Inspection%20tours/esthlak.dart';
+import 'package:hemaya/views/Inspection%20tours/malfat.dart';
+import 'package:hemaya/views/Inspection%20tours/documents.dart';
+import 'package:hemaya/views/Inspection%20tours/location.dart';
+import 'package:hemaya/views/loading/loading.dart';
 
 import '../../controllers/masgedController.dart';
 import 'Infringements.dart';
@@ -39,23 +40,26 @@ class InspectionToursOne extends GetView<MasgedController> {
               right: 0,
             ),
             Positioned(
-              child: SafeArea(
-                child: Center(
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        "assets/logo1.png",
-                        height: 100,
-                      ),
-                      Text(
-                        "وزارة الشؤون الاسلاميه و الدعوة و الارشاد ",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "TajawalMedium",
-                            color: Colors.black),
-                      ),
-                    ],
-                  ),
+              top: 40,
+              right: 0,
+              left: 0,
+              bottom: 40,
+              child: Center(
+                child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/logo1.png",
+                      height: 100,
+                    ),
+                    Text(
+                      "وزارة الشؤون الإسلامية والدعوة والإرشاد",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "TajawalMedium",
+                          color: Colors.black),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -108,8 +112,6 @@ class InspectionToursOne extends GetView<MasgedController> {
                           },
                               "assets/cvbbn.png",
                               controller.namemasagedController.text.isNotEmpty &&
-                                      controller.masgedwaseraController.text
-                                          .isNotEmpty &&
                                       controller
                                           .branchController.text.isNotEmpty &&
                                       controller.GovernorateController.text
@@ -163,7 +165,8 @@ class InspectionToursOne extends GetView<MasgedController> {
                             Get.to(documents());
                           },
                               "assets/fghj.png",
-                              controller.selectedImagegalley != null
+                              !controller.file.isEmpty ||
+                                      controller.selectedImagegalley != null
                                   ? Colors.green
                                   : Colors.grey),
                           Row(

@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/homeController.dart';
+import 'package:hemaya/controllers/homeController.dart';
 
 class MyAnalytics extends StatelessWidget {
   const MyAnalytics({super.key});
@@ -21,10 +21,10 @@ class MyAnalytics extends StatelessWidget {
               right: 0,
             ),
             Positioned(
-              top: 80,
+              top: 40,
               right: 0,
               left: 0,
-              bottom: 0,
+              bottom: 40,
               child: SingleChildScrollView(
                 child: Center(
                   child: Column(
@@ -34,8 +34,12 @@ class MyAnalytics extends StatelessWidget {
                         height: 100,
                       ),
                       Text(
-                        "وزارة الشؤون الاسلاميه و الدعوة و الارشاد ",
-                        style: TextStyle(fontSize: 18, color: Colors.black),
+                        "وزارة الشؤون الإسلامية والدعوة والإرشاد",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: "TajawalMedium",
+                            color: Colors.black),
                       ),
                       SizedBox(height: 20),
                       Text(
@@ -45,6 +49,11 @@ class MyAnalytics extends StatelessWidget {
                       SizedBox(height: 20),
                       Text(
                         "${controller.myGadwalss.length} : عدد الجداول ",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        "${controller.ta3dyat} : عدد التعديات ",
                         style: TextStyle(fontSize: 30),
                       ),
                       SizedBox(height: 20),

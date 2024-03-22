@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/models/UserModel.dart';
+import 'package:hemaya/models/UserModel.dart';
 
 
 import '../../select_masagedy/select_masagedy.dart';

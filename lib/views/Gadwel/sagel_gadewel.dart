@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/GadwelController.dart';
-import 'package:muslimapp/controllers/authController.dart';
-import 'package:muslimapp/controllers/homeController.dart';
-import 'package:muslimapp/models/Gadwel.dart';
-import 'package:muslimapp/views/Gadwel/editgadwel.dart';
-import 'package:muslimapp/views/pdfs/pdf.dart';
-import 'package:muslimapp/views/pdfs/pdfScreenShot.dart';
+import 'package:hemaya/controllers/GadwelController.dart';
+import 'package:hemaya/controllers/authController.dart';
+import 'package:hemaya/controllers/homeController.dart';
+import 'package:hemaya/models/Gadwel.dart';
+import 'package:hemaya/views/Gadwel/editgadwel.dart';
+import 'package:hemaya/views/pdfs/pdf.dart';
+import 'package:hemaya/views/pdfs/pdfScreenShot.dart';
 
 class SagelGadewelPage extends StatelessWidget {
   @override
@@ -23,29 +23,31 @@ class SagelGadewelPage extends StatelessWidget {
             right: 0,
           ),
           Positioned(
-            top: 80,
+            top: 40,
             right: 0,
             left: 0,
-            bottom: 0,
-            child: SingleChildScrollView(
-              child: Center(
-                child: Column(
-                  children: [
-                    Image.asset(
-                      "assets/logo1.png",
-                      height: 100,
-                    ),
-                    Text(
-                      "وزارة الشؤون الاسلاميه و الدعوة و الارشاد ",
-                      style: TextStyle(fontSize: 18, color: Colors.black),
-                    ),
-                  ],
-                ),
+            bottom: 40,
+            child: Center(
+              child: Column(
+                children: [
+                  Image.asset(
+                    "assets/logo1.png",
+                    height: 100,
+                  ),
+                  Text(
+                    "وزارة الشؤون الإسلامية والدعوة والإرشاد",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: "TajawalMedium",
+                        color: Colors.black),
+                  ),
+                ],
               ),
             ),
           ),
           Positioned(
-            top: 300,
+            top: 230,
             right: 10,
             left: 10,
             bottom: 0,

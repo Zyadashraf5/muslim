@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/GadwelController.dart';
-import 'package:muslimapp/controllers/homeController.dart';
-import 'package:muslimapp/controllers/masgedController.dart';
+import 'package:hemaya/controllers/GadwelController.dart';
+import 'package:hemaya/controllers/homeController.dart';
+import 'package:hemaya/controllers/masgedController.dart';
 import '../routes/app_pages.dart';
 import '../views/Map/map_screen.dart';
 import '../views/profile/profile.screen.dart';

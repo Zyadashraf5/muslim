@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/GadwelController.dart';
-import 'package:muslimapp/controllers/homeController.dart';
-import 'package:muslimapp/models/UserModel.dart';
-import 'package:muslimapp/views/pdfs/pdf.dart';
-import 'package:muslimapp/views/pdfs/pdf_inspection.dart';
+import 'package:hemaya/controllers/GadwelController.dart';
+import 'package:hemaya/controllers/homeController.dart';
+import 'package:hemaya/models/UserModel.dart';
+import 'package:hemaya/views/pdfs/pdf.dart';
+import 'package:hemaya/views/pdfs/pdf_inspection.dart';
 
 class AnalyticsGadwlat extends GetView<HomeController> {
   const AnalyticsGadwlat({super.key});

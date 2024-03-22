@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:muslimapp/controllers/homeController.dart';
-import 'package:muslimapp/models/UserModel.dart';
-import 'package:muslimapp/views/signature/signature.dart';
+import 'package:hemaya/controllers/homeController.dart';
+import 'package:hemaya/models/UserModel.dart';
+import 'package:hemaya/views/signature/signature.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -126,6 +126,7 @@ class GadwelController extends GetxController {
     GadwelModel gadwel = GadwelModel(
       date: DateTime.now().toString(),
       users: [userSSN],
+      seenUsers: [],
       signedRole2: false,
       signedRole3: false,
       creator: userSSN,
@@ -213,27 +214,16 @@ class GadwelController extends GetxController {
           .get();
 
       UserModel user = UserModel.fromSnapShot(userSnap);
-      if (int.parse(user.role) == 3) {
-        await FirebaseFirestore.instance
-            .collection('Gadwel')
-            .doc(documentId)
-            .update({
-          'signedRole3': true,
-          'signerSSNRole3': ssn,
-          "signerNameRole3": user.name,
-          "signatureRole3": user.imagesignature,
-        });
-      } else if (int.parse(user.role) == 2) {
-        await FirebaseFirestore.instance
-            .collection('Gadwel')
-            .doc(documentId)
-            .update({
-          'signedRole2': true,
-          'signerSSNRole2': ssn,
-          "signerNameRole2": user.name,
-          "signatureRole2": user.imagesignature,
-        });
-      }
+
+      await FirebaseFirestore.instance
+          .collection('Gadwel')
+          .doc(documentId)
+          .update({
+        'signedRole3': true,
+        'signerSSNRole3': ssn,
+        "signerNameRole3": user.name,
+        "signatureRole3": user.imagesignature,
+      });
 
       print('تم التعديل الجدول');
     } catch (e) {

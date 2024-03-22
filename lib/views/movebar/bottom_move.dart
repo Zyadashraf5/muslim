@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/qrcodeController.dart';
-import 'package:muslimapp/views/home/home_screen.dart';
-import 'package:muslimapp/views/Map/map_screen.dart';
-import 'package:muslimapp/views/profile/profile.screen.dart';
-import 'package:muslimapp/views/qrcode/qr_screen.dart';
-import 'package:muslimapp/views/task/taskes.screen.dart';
+import 'package:hemaya/controllers/qrcodeController.dart';
+import 'package:hemaya/views/home/home_screen.dart';
+import 'package:hemaya/views/Map/map_screen.dart';
+import 'package:hemaya/views/profile/profile.screen.dart';
+import 'package:hemaya/views/qrcode/qr_screen.dart';
+import 'package:hemaya/views/task/taskes.screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';

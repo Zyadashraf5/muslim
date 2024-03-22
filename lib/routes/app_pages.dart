@@ -1,20 +1,20 @@
 import 'package:get/get.dart';
-import 'package:muslimapp/binding/addmasaged_binding.dart';
-import 'package:muslimapp/binding/addmasagedone_binding.dart';
-import 'package:muslimapp/binding/adduser_binding.dart';
-import 'package:muslimapp/binding/home_bindng.dart';
-import 'package:muslimapp/binding/profile_binding.dart';
-import 'package:muslimapp/binding/qr_binding.dart';
-import 'package:muslimapp/binding/read_binding.dart';
-import 'package:muslimapp/binding/scan_binding.dart';
-import 'package:muslimapp/binding/splash_binding.dart';
-import 'package:muslimapp/binding/taskes_binding.dart';
+import 'package:hemaya/binding/addmasaged_binding.dart';
+import 'package:hemaya/binding/addmasagedone_binding.dart';
+import 'package:hemaya/binding/adduser_binding.dart';
+import 'package:hemaya/binding/home_bindng.dart';
+import 'package:hemaya/binding/profile_binding.dart';
+import 'package:hemaya/binding/qr_binding.dart';
+import 'package:hemaya/binding/read_binding.dart';
+import 'package:hemaya/binding/scan_binding.dart';
+import 'package:hemaya/binding/splash_binding.dart';
+import 'package:hemaya/binding/taskes_binding.dart';
 
-import 'package:muslimapp/views/admin/add_user.dart';
-import 'package:muslimapp/views/home/home_screen.dart';
-import 'package:muslimapp/views/profile/profile.screen.dart';
-import 'package:muslimapp/views/qrcode/qr_screen.dart';
-import 'package:muslimapp/views/qrcode/scan.dart';
+import 'package:hemaya/views/admin/add_user.dart';
+import 'package:hemaya/views/home/home_screen.dart';
+import 'package:hemaya/views/profile/profile.screen.dart';
+import 'package:hemaya/views/qrcode/qr_screen.dart';
+import 'package:hemaya/views/qrcode/scan.dart';
 
 import '../views/splach/splach_screnn.dart';
 import '../views/task/taskes.screen.dart';

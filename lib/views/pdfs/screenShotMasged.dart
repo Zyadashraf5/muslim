@@ -8,10 +8,10 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:muslimapp/controllers/masgedController.dart';
-import 'package:muslimapp/models/Gadwel.dart';
-import 'package:muslimapp/models/Masagedy.dart';
-import 'package:muslimapp/views/pdfs/pdf_inspection.dart';
+import 'package:hemaya/controllers/masgedController.dart';
+import 'package:hemaya/models/Gadwel.dart';
+import 'package:hemaya/models/Masagedy.dart';
+import 'package:hemaya/views/pdfs/pdf_inspection.dart';
 import 'package:pdf/pdf.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -35,13 +35,15 @@ class _screenshotState extends State<screenshotMasged> {
   @override
   Widget build(BuildContext context) => Screenshot(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               children: [
                 IconButton(
                     onPressed: () async {
-                      final image = await controller.capture();
+                      final image = await controller.captureFromWidget(
+                          screenshotMasgedImage(masgedModel));
                       if (image != null) {
                         await saveImage(image, masgedModel);
                         SnackBar snackBar = SnackBar(
@@ -56,19 +58,12 @@ class _screenshotState extends State<screenshotMasged> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            color: Colors.black,
-                            padding: const EdgeInsets.all(1),
                             child: Container(
                               color: Colors.white,
-                              padding: const EdgeInsets.all(4),
                               child: Column(
                                 children: [
                                   Row(
@@ -95,138 +90,77 @@ class _screenshotState extends State<screenshotMasged> {
                         ],
                       ),
                       const Text(
-                        "( تقرير جولة )",
+                        "( تقرير زيارة )",
                         style: TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
-                      Row(
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomDivider(
-                            height: 25,
-                          ),
-                          Expanded(
-                              child: TableHead(
-                            text:
-                                "    اسم المسجد / الجامع :  ${masgedModel.namemasaged}",
-                          )),
-                          CustomDivider(
-                            height: 25,
+                          TableHead(
+                            text: " اسم المسجد  :  ${masgedModel.namemasaged}",
                           ),
                         ],
                       ),
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomDivider(
-                            height: 40,
+                          TableCell(
+                            text: "المحافظة: ${masgedModel.Governorate}",
                           ),
-                          Expanded(
-                            flex: 2,
-                            child: TableCell(
-                              text: "الحي: ${masgedModel.District}",
-                            ),
-                          ),
-                          CustomDivider(
-                            height: 40,
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: TableCell(
-                              text: "المركز: ${masgedModel.Centerr}",
-                            ),
-                          ),
-                          CustomDivider(
-                            height: 40,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: TableCell(
-                              text: "المحافظة: ${masgedModel.Governorate}",
-                            ),
-                          ),
-                          CustomDivider(
-                            height: 40,
-                          ),
-                          Expanded(
-                              flex: 2,
-                              child: TableCell(
-                                text: "المنطقة : ${masgedModel.branch}  ",
-                              )),
-                          CustomDivider(
-                            height: 40,
+                          TableCell(
+                            text: "المنطقة : ${masgedModel.branch}  ",
                           ),
                         ],
                       ),
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomDivider(
-                            height: 40,
+                          TableCell(
+                            text: "الحي: ${masgedModel.District}",
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: checkbox(
-                              text: "لا",
-                              isChecked: masgedModel.cleaningmasaged == "نعم"
-                                  ? false
-                                  : true,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: checkbox(
-                              text: "نعم",
-                              isChecked: masgedModel.cleaningmasaged == "نعم"
-                                  ? true
-                                  : false,
-                            ),
-                          ),
-                          CustomDivider(
-                            height: 40,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: TableCell(
-                              text: ": يوجد مؤسسة صيانة ونظافة  ",
-                            ),
-                          ),
-                          CustomDivider(
-                            height: 40,
+                          TableCell(
+                            text: "المكتب: ${masgedModel.Centerr}",
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          CustomDivider(
-                            height: 40,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: TableCell(
-                              text: "${masgedModel.watername}: قم عداد المياه ",
-                            ),
-                          ),
-                          CustomDivider(
-                            height: 40,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: TableCell(
-                              text:
-                                  " ${masgedModel.electricname} :قم عداد الكهرباء",
-                            ),
-                          ),
-                          CustomDivider(
-                            height: 40,
-                          ),
-                        ],
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+                      TableCell(
+                        text: " ${masgedModel.electricname} :رقم عداد الكهرباء",
+                      ),
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+
+                      TableCell(
+                        text: "${masgedModel.watername}: رقم عداد المياه ",
+                      ),
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
                       ),
                       Row(
                         children: [
-                          CustomDivider(
-                            height: 40,
-                          ),
                           Expanded(
                             flex: 1,
                             child: checkbox(
@@ -245,26 +179,23 @@ class _screenshotState extends State<screenshotMasged> {
                                   masgedModel.ta3dy3lakahrba,
                             ),
                           ),
-                          CustomDivider(
-                            height: 40,
-                          ),
+
                           Expanded(
                             flex: 2,
                             child: TableCell(
                               text: ": هل يوجد تعديات  ",
                             ),
                           ),
-                          CustomDivider(
-                            height: 40,
-                          ),
+
                           //
                         ],
                       ),
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
                       Row(
                         children: [
-                          CustomDivider(
-                            height: 40,
-                          ),
                           Expanded(
                             flex: 1,
                             child: checkbox(
@@ -279,101 +210,148 @@ class _screenshotState extends State<screenshotMasged> {
                                 isChecked: masgedModel.mo5alfat != null &&
                                     masgedModel.mo5alfat != ""),
                           ),
-                          CustomDivider(
-                            height: 40,
-                          ),
+
                           Expanded(
                             flex: 2,
                             child: TableCell(
                               text: ": هل يوجد ملاحظات   ",
                             ),
                           ),
-                          CustomDivider(
-                            height: 40,
-                          ),
+
                           //
                         ],
                       ),
-                      SizedBox(
-                        height: 20,
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
                       ),
-                      Center(
-                        child: Text(
-                          "تم رصد تعديات ومخالفات التالية : ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 12),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "${masgedModel.t3dy3lyalkhrbaawalmyah ? masgedModel.t3dy3lyalkhrbaawalmyahValue : masgedModel.ta3dy3lakahrba ? masgedModel.ta3dy3lakahrbaValue : masgedModel.t3dy3lyalmyah ? masgedModel.ta3dy3lakahrbaValue : ""}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: checkbox(
+                                text: "لا",
+                                isChecked: masgedModel.esthlak3aly == ""),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: checkbox(
+                                text: "نعم",
+                                isChecked: masgedModel.esthlak3aly != ""),
+                          ),
+
+                          Expanded(
+                            flex: 2,
+                            child: TableCell(
+                              text: ": هل يوجد استهلاك عالي",
                             ),
-                            Text(":"),
-                            Text("التعديات")
-                          ],
-                        ),
+                          ),
+
+                          //
+                        ],
                       ),
-                      SizedBox(
-                        height: 20,
+                      Divider(
+                        height: 9,
+                        color: const Color.fromARGB(63, 0, 0, 0),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "${masgedModel.mo5alfat}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
-                            ),
-                            Text(":"),
-                            Text("الملاحظات"),
-                          ],
-                        ),
-                      ),
-                      masgedModel.esthlak3aly != null
+                      masgedModel.t3dy3lyalkhrbaawalmyah ||
+                              masgedModel.t3dy3lyalmyah ||
+                              masgedModel.ta3dy3lmrafak ||
+                              masgedModel.ta3dy3lakahrba
                           ? Align(
                               alignment: Alignment.centerRight,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(
-                                    "${masgedModel.esthlak3aly}",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
-                                  Text(":"),
-                                  Text("الاستهلاك"),
+                                  Expanded(
+                                    child: Text(
+                                      "التعديات : ${masgedModel.t3dy3lyalkhrbaawalmyah ? masgedModel.t3dy3lyalkhrbaawalmyahValue : masgedModel.ta3dy3lakahrba ? masgedModel.ta3dy3lakahrbaValue : masgedModel.t3dy3lyalmyah ? masgedModel.ta3dy3lakahrbaValue : ""}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  )
                                 ],
                               ),
+                            )
+                          : Container(),
+                      masgedModel.t3dy3lyalkhrbaawalmyah ||
+                              masgedModel.t3dy3lyalmyah ||
+                              masgedModel.ta3dy3lmrafak ||
+                              masgedModel.ta3dy3lakahrba
+                          ? Divider(
+                              height: 9,
+                              color: const Color.fromARGB(63, 0, 0, 0),
+                            )
+                          : Container(),
+                      masgedModel.mo5alfat != ""
+                          ? Align(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                      child: Text(
+                                          "الملاحظات : ${masgedModel.mo5alfat}",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                          textAlign: TextAlign.right)),
+                                ],
+                              ),
+                            )
+                          : Container(),
+                      masgedModel.mo5alfat != ""
+                          ? Divider(
+                              height: 2,
+                              color: const Color.fromARGB(63, 0, 0, 0),
+                            )
+                          : Container(),
+
+                      masgedModel.esthlak3aly != ""
+                          ? Align(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "الاستهلاك :${masgedModel.esthlak3aly}",
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(),
+                      masgedModel.esthlak3aly != ""
+                          ? Divider(
+                              height: 2,
+                              color: const Color.fromARGB(63, 0, 0, 0),
                             )
                           : Container(),
                       const SizedBox(
                         height: 50,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
-                            ),
                             child: Column(
                               children: [
                                 Text(
                                   "عضو اللجنة الميدانية",
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  "بإدارة حماية مرافق المساجد وخدماتها ",
                                   style: TextStyle(
                                       fontSize: 11,
                                       fontWeight: FontWeight.bold),
@@ -386,34 +364,30 @@ class _screenshotState extends State<screenshotMasged> {
                                     ? Image(
                                         width: 100,
                                         height: 50,
-                                        fit: BoxFit.contain,
+                                        fit: BoxFit.fill,
                                         image: NetworkImage(
                                             masgedModel.signatureRole3!),
                                       )
-                                    : Container()
+                                    : Container(),
                               ],
                             ),
                           ),
                           Column(
                             children: [
                               Container(
-                                width: 100,
                                 height: 100,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black),
-                                ),
                                 child: Column(
                                   children: [
-                                    Text(
-                                      "باركود التقرير",
-                                      style: TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                    // Text(
+                                    //   "باركود التقرير",
+                                    //   style: TextStyle(
+                                    //       fontSize: 11,
+                                    //       fontWeight: FontWeight.bold),
+                                    //   textAlign: TextAlign.center,
+                                    // ),
                                     QrImageView(
                                       data: masgedModel.qr,
-                                      size: 70,
+                                      size: 80,
                                     )
                                   ],
                                 ),
@@ -421,7 +395,8 @@ class _screenshotState extends State<screenshotMasged> {
                             ],
                           ),
                         ],
-                      )
+                      ),
+                      //
                     ],
                   ),
                 ),
@@ -443,7 +418,7 @@ class CustomDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
-      width: 1,
+      width: 0.4,
       height: height,
     );
   }
@@ -459,19 +434,404 @@ class TableHead extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.black,
-        padding: const EdgeInsets.symmetric(vertical: 1),
         child: Container(
-          height: 25,
-          alignment: Alignment.center,
-          color: const Color(0xffdfdfdf),
-          child: Text(
-            text,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
-          ),
-        ));
+      height: 25,
+      alignment: Alignment.centerRight,
+      color: Colors.white,
+      child: Text(
+        text,
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+      ),
+    ));
   }
 }
+
+Widget screenshotMasgedImage(masgedModel) => MediaQuery(
+      data: MediaQueryData(),
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Container(
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                          "${masgedModel.date!.split(" ")[0]}"),
+                                      Text(":"),
+                                      Text("التاريخ"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Image.asset(
+                            "assets/1.png",
+                            width: 80,
+                          ),
+                          Image.asset(
+                            "assets/2.png",
+                            width: 100,
+                          ),
+                        ],
+                      ),
+
+                      const Text(
+                        "( تقرير زيارة )",
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                      ),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TableHead(
+                            text: " اسم المسجد  :  ${masgedModel.namemasaged}",
+                          ),
+                        ],
+                      ),
+
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TableCell(
+                            text: "المحافظة: ${masgedModel.Governorate}",
+                          ),
+                          TableCell(
+                            text: "المنطقة : ${masgedModel.branch}  ",
+                          ),
+                        ],
+                      ),
+
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TableCell(
+                            text: "الحي: ${masgedModel.District}",
+                          ),
+                          TableCell(
+                            text: "المكتب: ${masgedModel.Centerr}",
+                          ),
+                        ],
+                      ),
+
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+
+                      TableCell(
+                        text: " ${masgedModel.electricname} :رقم عداد الكهرباء",
+                      ),
+
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+
+                      TableCell(
+                        text: "${masgedModel.watername}: رقم عداد المياه ",
+                      ),
+
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: checkbox(
+                              text: "لا",
+                              isChecked: !masgedModel.t3dy3lyalkhrbaawalmyah &&
+                                  !masgedModel.t3dy3lyalmyah &&
+                                  !masgedModel.ta3dy3lakahrba,
+                            ),
+                          ),
+
+                          Expanded(
+                            flex: 1,
+                            child: checkbox(
+                              text: "نعم",
+                              isChecked: masgedModel.t3dy3lyalkhrbaawalmyah ||
+                                  masgedModel.t3dy3lyalmyah ||
+                                  masgedModel.ta3dy3lakahrba,
+                            ),
+                          ),
+
+                          Expanded(
+                            flex: 2,
+                            child: TableCell(
+                              text: ": هل يوجد تعديات  ",
+                            ),
+                          ),
+
+                          //
+                        ],
+                      ),
+
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: checkbox(
+                                text: "لا",
+                                isChecked: masgedModel.mo5alfat == null ||
+                                    masgedModel.mo5alfat == ""),
+                          ),
+
+                          Expanded(
+                            flex: 1,
+                            child: checkbox(
+                                text: "نعم",
+                                isChecked: masgedModel.mo5alfat != null &&
+                                    masgedModel.mo5alfat != ""),
+                          ),
+
+                          Expanded(
+                            flex: 2,
+                            child: TableCell(
+                              text: ": هل يوجد ملاحظات   ",
+                            ),
+                          ),
+
+                          //
+                        ],
+                      ),
+
+                      Divider(
+                        height: 2,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: checkbox(
+                                text: "لا",
+                                isChecked: masgedModel.esthlak3aly == ""),
+                          ),
+
+                          Expanded(
+                            flex: 1,
+                            child: checkbox(
+                                text: "نعم",
+                                isChecked: masgedModel.esthlak3aly != ""),
+                          ),
+
+                          Expanded(
+                            flex: 2,
+                            child: TableCell(
+                              text: ": هل يوجد استهلاك عالي",
+                            ),
+                          ),
+
+                          //
+                        ],
+                      ),
+
+                      Divider(
+                        height: 9,
+                        color: const Color.fromARGB(63, 0, 0, 0),
+                      ),
+
+                      masgedModel.t3dy3lyalkhrbaawalmyah ||
+                              masgedModel.t3dy3lyalmyah ||
+                              masgedModel.ta3dy3lmrafak ||
+                              masgedModel.ta3dy3lakahrba
+                          ? Align(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "التعديات : ${masgedModel.t3dy3lyalkhrbaawalmyah ? masgedModel.t3dy3lyalkhrbaawalmyahValue : masgedModel.ta3dy3lakahrba ? masgedModel.ta3dy3lakahrbaValue : masgedModel.t3dy3lyalmyah ? masgedModel.ta3dy3lakahrbaValue : ""}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container(),
+
+                      masgedModel.t3dy3lyalkhrbaawalmyah ||
+                              masgedModel.t3dy3lyalmyah ||
+                              masgedModel.ta3dy3lmrafak ||
+                              masgedModel.ta3dy3lakahrba
+                          ? Divider(
+                              height: 9,
+                              color: const Color.fromARGB(63, 0, 0, 0),
+                            )
+                          : Container(),
+
+                      masgedModel.mo5alfat != ""
+                          ? Align(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                      child: Text(
+                                          "الملاحظات : ${masgedModel.mo5alfat}",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                          textAlign: TextAlign.right)),
+                                ],
+                              ),
+                            )
+                          : Container(),
+
+                      masgedModel.mo5alfat != ""
+                          ? Divider(
+                              height: 2,
+                              color: const Color.fromARGB(63, 0, 0, 0),
+                            )
+                          : Container(),
+
+                      masgedModel.esthlak3aly != ""
+                          ? Align(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "الاستهلاك : ${masgedModel.esthlak3aly}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(),
+
+                      masgedModel.esthlak3aly != ""
+                          ? Divider(
+                              height: 2,
+                              color: const Color.fromARGB(63, 0, 0, 0),
+                            )
+                          : Container(),
+
+                      const SizedBox(
+                        height: 50,
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Column(
+                              children: [
+                                Text(
+                                  "عضو اللجنة الميدانية",
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  "بإدارة حماية مرافق المساجد وخدماتها ",
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                                masgedModel.signatureRole3 != null
+                                    ? Text(masgedModel.signerNameRole3!)
+                                    : Container(),
+                                masgedModel.signatureRole3 != null
+                                    ? Image(
+                                        width: 100,
+                                        height: 50,
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage(
+                                            masgedModel.signatureRole3!),
+                                      )
+                                    : Container(),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                height: 100,
+                                child: Column(
+                                  children: [
+                                    // Text(
+                                    //   "باركود التقرير",
+                                    //   style: TextStyle(
+                                    //       fontSize: 11,
+                                    //       fontWeight: FontWeight.bold),
+                                    //   textAlign: TextAlign.center,
+                                    // ),
+                                    QrImageView(
+                                      data: masgedModel.qr,
+                                      size: 80,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+
+                      //
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
 
 class TableCell extends StatelessWidget {
   const TableCell({
@@ -483,18 +843,60 @@ class TableCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.black,
-        padding: const EdgeInsets.only(bottom: 1),
         child: Container(
-          height: 40,
-          alignment: Alignment.center,
-          color: Colors.white,
-          child: Text(
-            text,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
-            textAlign: TextAlign.center,
-          ),
-        ));
+      height: 40,
+      alignment: Alignment.centerRight,
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: Text(
+          text,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ));
+  }
+}
+
+class checkbox extends StatelessWidget {
+  checkbox({
+    Key? key,
+    required this.text,
+    this.isChecked = false,
+  }) : super(key: key);
+
+  final String text;
+  bool isChecked = false;
+  @override
+  Widget build(BuildContext context) {
+    // Add a boolean variable to track the checkbox state
+
+    return Container(
+      child: Container(
+        height: 40,
+        alignment: Alignment.centerRight,
+        color: Colors.white,
+        child: Row(
+          children: [
+            Checkbox(
+              value: isChecked,
+              onChanged: (value) {
+                isChecked = value ?? false; // Update the checkbox state
+              },
+            ),
+            Text(
+              text,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -528,8 +930,16 @@ Future<String> saveImage(Uint8List bytes, MasagedyModel masagedyModel) async {
 
   pdf.addPage(
     pw.Page(
+      pageFormat: PdfPageFormat.standard,
       build: (pw.Context context) {
-        return pw.Center(child: pw.Expanded(child: pw.Image(image)));
+        return pw.FullPage(
+            ignoreMargins: true,
+            child: pw.Center(
+              child: pw.Image(
+                image,
+                fit: pw.BoxFit.fill,
+              ),
+            ));
       },
     ),
   );
@@ -540,7 +950,7 @@ Future<String> saveImage(Uint8List bytes, MasagedyModel masagedyModel) async {
       pdf.addPage(
         pw.Page(
           build: (pw.Context context) {
-            return pw.Image(image);
+            return pw.Center(child: pw.Image(image));
           },
         ),
       );

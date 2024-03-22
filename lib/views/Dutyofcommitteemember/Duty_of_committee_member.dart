@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/authController.dart';
+import 'package:hemaya/controllers/authController.dart';
 
 class DutyMember extends GetView<AuthControler> {
   const DutyMember({super.key});
@@ -19,23 +19,26 @@ class DutyMember extends GetView<AuthControler> {
               right: 0,
             ),
             Positioned(
-              child: SafeArea(
-                child: Center(
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        "assets/logo1.png",
-                        height: 100,
-                      ),
-                      Text(
-                        "وزارة الشؤون الاسلاميه و الدعوة و الارشاد ",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "TajawalMedium",
-                            color: Colors.black),
-                      ),
-                    ],
-                  ),
+              top: 40,
+              bottom: 40,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/logo1.png",
+                      height: 100,
+                    ),
+                    Text(
+                      "وزارة الشؤون الإسلامية والدعوة والإرشاد",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "TajawalMedium",
+                          color: Colors.black),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -84,37 +87,32 @@ class DutyMember extends GetView<AuthControler> {
                     ///مشرف اللجان
                     int.parse(controller.user!.role) == 3
                         ? dutybottons(
-                            "وضع خطه عمل الرصد اللجان",
+                            "وضع خطة عمل لرصد التعديات", //
                           )
                         : SizedBox(),
                     int.parse(controller.user!.role) == 3
                         ? dutybottons(
-                            "الاشراف على عمليات الرصد اللجان",
+                            "الإشراف على الخطة والتنفيذ مع الاعضاء ", //
                           )
                         : SizedBox(),
                     int.parse(controller.user!.role) == 3
                         ? dutybottons(
-                            "متابعة سير العمل",
+                            "متابعة سير العمل ", //
                           )
                         : SizedBox(),
                     int.parse(controller.user!.role) == 3
                         ? dutybottons(
-                            "استلام لتقارير",
+                            "استلام التقارير من الاعضاء ", //
                           )
                         : SizedBox(),
                     int.parse(controller.user!.role) == 3
                         ? dutybottons(
-                            "التدقيق و التحقق",
+                            "التدقيق والمتابعة ",
                           )
                         : SizedBox(),
                     int.parse(controller.user!.role) == 3
                         ? dutybottons(
-                            "الرفع لمدير الادارة",
-                          )
-                        : SizedBox(),
-                    int.parse(controller.user!.role) == 3
-                        ? dutybottons(
-                            "التقييم لجميع اعمال الادارة",
+                            "رفع التقارير لمدير الادارة",
                           )
                         : SizedBox(),
                   ],

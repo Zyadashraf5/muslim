@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/models/UserModel.dart';
+import 'package:hemaya/models/UserModel.dart';
 
 class Itemmshrfallgnh extends StatelessWidget {
   Itemmshrfallgnh({super.key, required this.user});

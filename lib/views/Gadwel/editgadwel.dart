@@ -9,10 +9,10 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:getwidget/getwidget.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:muslimapp/models/Gadwel.dart';
-import 'package:muslimapp/models/Masagedy.dart';
+import 'package:hemaya/models/Gadwel.dart';
+import 'package:hemaya/models/Masagedy.dart';
 
-import 'package:muslimapp/views/loading/loading.dart';
+import 'package:hemaya/views/loading/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -25,9 +25,9 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:getwidget/getwidget.dart';
 
-import 'package:muslimapp/models/Masagedy.dart';
+import 'package:hemaya/models/Masagedy.dart';
 
-import 'package:muslimapp/views/loading/loading.dart';
+import 'package:hemaya/views/loading/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';

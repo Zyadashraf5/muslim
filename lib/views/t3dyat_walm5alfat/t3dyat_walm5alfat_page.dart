@@ -20,24 +20,26 @@ class t3dyatwalm5alfat extends StatelessWidget {
           right: 0,
         ),
         Positioned(
-          top: 80,
+          top: 40,
           right: 0,
           left: 0,
-          bottom: 0,
-          child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                  Image.asset(
-                    "assets/logo1.png",
-                    height: 100,
-                  ),
-                  Text(
-                    "وزارة الشؤون الاسلاميه و الدعوة و الارشاد ",
-                    style: TextStyle(fontSize: 18, color: Colors.black),
-                  ),
-                ],
-              ),
+          bottom: 40,
+          child: Center(
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/logo1.png",
+                  height: 100,
+                ),
+                Text(
+                  "وزارة الشؤون الإسلامية والدعوة والإرشاد",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: "TajawalMedium",
+                      color: Colors.black),
+                ),
+              ],
             ),
           ),
         ),

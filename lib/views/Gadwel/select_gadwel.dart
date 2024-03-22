@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/authController.dart';
-import 'package:muslimapp/views/Gadwel/sagel_gadewel.dart';
+import 'package:hemaya/controllers/authController.dart';
+import 'package:hemaya/controllers/homeController.dart';
+import 'package:hemaya/views/Gadwel/sagel_gadewel.dart';
 
 import 'qustion_gadwel.dart';
 
@@ -22,24 +23,26 @@ class SelectGadwel extends StatelessWidget {
             right: 0,
           ),
           Positioned(
-            top: 80,
+            top: 40,
             right: 0,
             left: 0,
-            bottom: 0,
-            child: SingleChildScrollView(
-              child: Center(
-                child: Column(
-                  children: [
-                    Image.asset(
-                      "assets/logo1.png",
-                      height: 100,
-                    ),
-                    Text(
-                      "وزارة الشؤون الاسلاميه و الدعوة و الارشاد ",
-                      style: TextStyle(fontSize: 18, color: Colors.black),
-                    ),
-                  ],
-                ),
+            bottom: 40,
+            child: Center(
+              child: Column(
+                children: [
+                  Image.asset(
+                    "assets/logo1.png",
+                    height: 100,
+                  ),
+                  Text(
+                    "وزارة الشؤون الإسلامية والدعوة والإرشاد",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: "TajawalMedium",
+                        color: Colors.black),
+                  ),
+                ],
               ),
             ),
           ),
@@ -48,68 +51,66 @@ class SelectGadwel extends StatelessWidget {
             left: 0,
             right: 0,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: controller.role == 3
+                  ? MainAxisAlignment.spaceAround
+                  : MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 controller.role == 3
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(QustionGadwel());
-                          },
-                          child: Stack(
-                            children: [
-                              Image.asset(
-                                "assets/ic.png",
-                                height: 140,
+                    ? InkWell(
+                        onTap: () {
+                          Get.to(QustionGadwel());
+                        },
+                        child: Stack(
+                          children: [
+                            Image.asset(
+                              "assets/ic.png",
+                              height: 140,
+                            ),
+                            Positioned(
+                              top: 60,
+                              right: 0,
+                              left: 38,
+                              child: Text(
+                                "انشاء جدول",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: "TajawalMedium",
+                                    color: Colors.white),
                               ),
-                              Positioned(
-                                top: 60,
-                                right: 0,
-                                left: 38,
-                                child: Text(
-                                  "انشاء جدول",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: "TajawalMedium",
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       )
-                    : Container(
+                    : SizedBox(
                         width: 0,
                         height: 0,
                       ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: InkWell(
-                    onTap: () {
-                      Get.to(SagelGadewelPage());
-                    },
-                    child: Stack(
-                      children: [
-                        Image.asset(
-                          "assets/ic.png",
-                          height: 140,
+                InkWell(
+                  onTap: () async {
+                    HomeController homeController = Get.put(HomeController());
+                    await homeController.getallGadwel();
+                    Get.to(SagelGadewelPage());
+                  },
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        "assets/ic.png",
+                        height: 140,
+                      ),
+                      Positioned(
+                        top: 60,
+                        right: 0,
+                        left: 38,
+                        child: Text(
+                          "سجل الجدول",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontFamily: "TajawalMedium",
+                              color: Colors.white),
                         ),
-                        Positioned(
-                          top: 60,
-                          right: 0,
-                          left: 38,
-                          child: Text(
-                            "سجل الجدول",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontFamily: "TajawalMedium",
-                                color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],

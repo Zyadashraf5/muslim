@@ -6,11 +6,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:muslimapp/controllers/authController.dart';
-import 'package:muslimapp/models/UserModel.dart';
-import 'package:muslimapp/routes/app_pages.dart';
-import 'package:muslimapp/views/admin/Dashbord_app.dart';
-import 'package:muslimapp/views/login/login.dart';
+import 'package:hemaya/controllers/authController.dart';
+import 'package:hemaya/models/UserModel.dart';
+import 'package:hemaya/routes/app_pages.dart';
+import 'package:hemaya/views/admin/Dashbord_app.dart';
+import 'package:hemaya/views/login/login.dart';
 
 class SplashController extends GetxController {
   bool _visible = false;

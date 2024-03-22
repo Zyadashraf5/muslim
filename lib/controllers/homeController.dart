@@ -1,16 +1,18 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:muslimapp/controllers/authController.dart';
-import 'package:muslimapp/controllers/masgedController.dart';
-import 'package:muslimapp/models/Asnhlak3aly.dart';
-import 'package:muslimapp/models/Gadwel.dart';
-import 'package:muslimapp/models/Masagedy.dart';
-import 'package:muslimapp/models/UserModel.dart';
-import 'package:muslimapp/views/Asnhlak3aly/Asnhlak3aly.dart';
+import 'package:hemaya/controllers/authController.dart';
+import 'package:hemaya/controllers/masgedController.dart';
+import 'package:hemaya/models/Asnhlak3aly.dart';
+import 'package:hemaya/models/Gadwel.dart';
+import 'package:hemaya/models/Masagedy.dart';
+import 'package:hemaya/models/UserModel.dart';
+import 'package:hemaya/views/Asnhlak3aly/Asnhlak3aly.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:muslimapp/views/profile/myAnalytics.dart';
+import 'package:hemaya/views/profile/myAnalytics.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:pdf/widgets.dart' as pw;
@@ -18,6 +20,7 @@ import 'package:pdf/pdf.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
+  Map<UserModel, List<int>> dashboardData = {};
   List<Map<UserModel, MasagedyModel>> usersDashboard = [];
   List<Map<UserModel, GadwelModel>> gadwelDashboard = [];
   List<MasagedyModel> masaged = [];
@@ -27,6 +30,7 @@ class HomeController extends GetxController {
   List<GadwelModel> myGadwalss = [];
   List<MasagedyModel> myMasagedss = [];
   MasagedyModel? selectedMasged;
+  int ta3dyat = 0;
   bool listShownMasaged = false;
   List<Asnhlak3alyModel> esthlak = [];
   List<UserModel> allUsers = [];
@@ -143,13 +147,15 @@ class HomeController extends GetxController {
         .collection("Gadwel")
         .where('users', arrayContains: ssn)
         .get();
-    List<GadwelModel> gadwel = snapshot.docs
-        .where((doc) => !doc['seenUsers'].contains(ssn.toString()))
-        .map((e) => GadwelModel.fromSnapShot(e))
-        .toList();
-    ownGadawel = gadwel;
+    if (snapshot.docs.length > 0) {
+      List<GadwelModel> gadwel = snapshot.docs
+          .where((doc) => !doc['seenUsers'].contains(ssn.toString()))
+          .map((e) => GadwelModel.fromSnapShot(e))
+          .toList();
+      ownGadawel = gadwel;
 
-    update();
+      update();
+    }
   }
 
   Future<void> archiveDoc(String docId) async {
@@ -368,8 +374,16 @@ class HomeController extends GetxController {
         (masged) => {
               if (masged.mo5alfat != "")
                 {mola7azat += masged.mo5alfat!.split("-").length},
-              print(masged.mo5alfat!)
+              print(masged.mo5alfat!),
+              if (masged.t3dy3lyalkhrbaawalmyah)
+                {
+                  ta3dyat += 2,
+                },
+              if (masged.ta3dy3lmrafak) {ta3dyat++},
+              if (masged.t3dy3lyalmyah) {ta3dyat++},
+              if (masged.ta3dy3lakahrba) {ta3dyat++}
             });
+    update();
     myMo5lfat = mola7azat;
     Map<DateTime, int> masgedsDataChart = {};
     Map<DateTime, int> gadwelsDataChart = {};
@@ -408,5 +422,55 @@ class HomeController extends GetxController {
             });
     gadwelsssDataChart = gadwelsDataChart;
     update();
+  }
+
+  Future<void> dashboardMola7zat() async {
+    dashboardData = {};
+    final snapshot = await FirebaseFirestore.instance.collection("users").get();
+    List<UserModel> allUsers =
+        snapshot.docs.map((e) => UserModel.fromSnapShot(e)).toList();
+    Map<String, List<int>> dashboardSSN = {};
+
+    await Future.forEach(
+        allUsers,
+        (user) => {
+              dashboardSSN[user.ssn!] = [0, 0]
+            });
+    final snapshotMasaged =
+        await FirebaseFirestore.instance.collection("masgedy").get();
+    List<MasagedyModel> allMasaged =
+        snapshotMasaged.docs.map((e) => MasagedyModel.fromSnapShot(e)).toList();
+    int mola7zatt = 0;
+    int t3adyat = 0;
+    await Future.forEach(
+        allMasaged,
+        (masged) => {
+              t3adyat = 0,
+              mola7zatt = 0,
+              mola7zatt = masged.mo5alfat!.split("-").length,
+              if (masged.t3dy3lyalkhrbaawalmyah)
+                {
+                  t3adyat += 2,
+                },
+              if (masged.ta3dy3lmrafak)
+                {
+                  t3adyat++,
+                },
+              if (masged.ta3dy3lakahrba)
+                {
+                  t3adyat++,
+                },
+              if (masged.t3dy3lyalmyah)
+                {
+                  t3adyat++,
+                },
+              dashboardSSN.update(masged.creator!, (value) {
+                value[0] += mola7zatt;
+                value[1] += t3adyat;
+                return value;
+              }),
+            });
+    await Future.forEach(
+        allUsers, (user) => {dashboardData[user] = dashboardSSN[user.ssn!]!});
   }
 }

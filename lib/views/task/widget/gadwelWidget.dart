@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/GadwelController.dart';
-import 'package:muslimapp/models/Gadwel.dart';
-import 'package:muslimapp/models/Masagedy.dart';
-import 'package:muslimapp/views/pdfs/pdf.dart';
-import 'package:muslimapp/views/pdfs/pdf_inspection.dart';
+import 'package:hemaya/controllers/GadwelController.dart';
+import 'package:hemaya/models/Gadwel.dart';
+import 'package:hemaya/models/Masagedy.dart';
+import 'package:hemaya/views/pdfs/pdf.dart';
+import 'package:hemaya/views/pdfs/pdf_inspection.dart';
 
 import '../../select_masagedy/select_masagedy.dart';
 

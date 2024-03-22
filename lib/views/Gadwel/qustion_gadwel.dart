@@ -8,9 +8,9 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:getwidget/getwidget.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:muslimapp/models/Masagedy.dart';
+import 'package:hemaya/models/Masagedy.dart';
 
-import 'package:muslimapp/views/loading/loading.dart';
+import 'package:hemaya/views/loading/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -23,9 +23,9 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:getwidget/getwidget.dart';
 
-import 'package:muslimapp/models/Masagedy.dart';
+import 'package:hemaya/models/Masagedy.dart';
 
-import 'package:muslimapp/views/loading/loading.dart';
+import 'package:hemaya/views/loading/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
@@ -198,16 +198,15 @@ class QustionGadwel extends GetView<GadwelController> {
                       ),
                       controller.weekControllerfrist.text == "الاول"
                           ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 350),
-                                  child: Container(
-                                    child: Text(
-                                      ":المركز",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.black,
-                                      ),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    ":المركز",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
                                     ),
                                   ),
                                 ),
@@ -403,17 +402,16 @@ class QustionGadwel extends GetView<GadwelController> {
                       ),
                       controller.weekControllerSecond.text == "الثاني"
                           ? Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 350),
-                                  child: Container(
-                                    child: Text(
-                                      ":المركز",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.black,
-                                      ),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    ":المركز",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
                                     ),
                                   ),
                                 ),
@@ -609,16 +607,15 @@ class QustionGadwel extends GetView<GadwelController> {
                       ),
                       controller.weekControllerthird.text == "الثالث"
                           ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 350),
-                                  child: Container(
-                                    child: Text(
-                                      ":المركز",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.black,
-                                      ),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    ":المركز",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
                                     ),
                                   ),
                                 ),
@@ -814,16 +811,15 @@ class QustionGadwel extends GetView<GadwelController> {
                       ),
                       controller.weekControllerfourth.text == "الرابع"
                           ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 350),
-                                  child: Container(
-                                    child: Text(
-                                      ":المركز",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.black,
-                                      ),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    ":المركز",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
                                     ),
                                   ),
                                 ),

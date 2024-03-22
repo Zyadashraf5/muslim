@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/homeController.dart';
-import 'package:muslimapp/models/UserModel.dart';
+import 'package:hemaya/controllers/homeController.dart';
+import 'package:hemaya/models/UserModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignatureController extends GetxController {

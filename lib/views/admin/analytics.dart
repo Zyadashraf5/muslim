@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/homeController.dart';
-import 'package:muslimapp/models/Masagedy.dart';
-import 'package:muslimapp/models/UserModel.dart';
-import 'package:muslimapp/views/pdfs/pdf_inspection.dart';
+import 'package:hemaya/controllers/homeController.dart';
+import 'package:hemaya/models/Masagedy.dart';
+import 'package:hemaya/models/UserModel.dart';
+import 'package:hemaya/views/pdfs/pdf_inspection.dart';
 
 class Analytics extends GetView<HomeController> {
   const Analytics({super.key});
@@ -103,10 +103,11 @@ class Analytics extends GetView<HomeController> {
                               alignment: Alignment.center,
                               value: controller.filteredUser,
                               items: [
-                                DropdownMenuItem<UserModel>(
+                                DropdownMenuItem<String?>(
                                   alignment: Alignment.center,
-                                  value:
-                                      null, // Add null value for the null option
+                                  value: controller.filterDate != null
+                                      ? controller.filterDate
+                                      : null, // Add null value for the null option
                                   child: Text(
                                     " اختر التاريخ", // Text for the null option
                                     textAlign: TextAlign.center,

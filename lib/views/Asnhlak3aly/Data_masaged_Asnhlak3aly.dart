@@ -8,9 +8,9 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:getwidget/getwidget.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:muslimapp/models/Masagedy.dart';
+import 'package:hemaya/models/Masagedy.dart';
 
-import 'package:muslimapp/views/loading/loading.dart';
+import 'package:hemaya/views/loading/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -23,9 +23,9 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:getwidget/getwidget.dart';
 
-import 'package:muslimapp/models/Masagedy.dart';
+import 'package:hemaya/models/Masagedy.dart';
 
-import 'package:muslimapp/views/loading/loading.dart';
+import 'package:hemaya/views/loading/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
@@ -111,54 +111,54 @@ class DataMasagedAsnhlak3aly extends GetView<Asnhlak3alyController> {
                     ),
                     Divider(),
 
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        child: Text(
-                          ":المسجد تحت اشراف الوزره",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey, width: 1),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: DropdownButton(
-                        underline: SizedBox(),
-                        hint: Text(
-                          "اختر",
-                        ),
-                        dropdownColor: Colors.white,
-                        icon: Icon(Icons.arrow_drop_down),
-                        iconSize: 36,
-                        isExpanded: true,
-                        alignment: Alignment.centerRight,
-                        value: controller.masgedwaseraController.text != ""
-                            ? controller.masgedwaseraController.text
-                            : null,
-                        items: controller.masgedwasera.map((valueitem) {
-                          return DropdownMenuItem<String>(
-                            alignment: Alignment.centerRight,
-                            value: valueitem,
-                            child: Text(
-                              valueitem,
-                              textAlign: TextAlign.right,
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (newvalue) {
-                          controller.masgedwaseraController.text = newvalue!;
-                          controller.update();
-                        },
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: Container(
+                    //     child: Text(
+                    //       ":المسجد تحت اشراف الوزره",
+                    //       style: TextStyle(
+                    //         fontSize: 18,
+                    //         color: Colors.black,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     border: Border.all(color: Colors.grey, width: 1),
+                    //     borderRadius: BorderRadius.circular(30),
+                    //   ),
+                    //   child: DropdownButton(
+                    //     underline: SizedBox(),
+                    //     hint: Text(
+                    //       "اختر",
+                    //     ),
+                    //     dropdownColor: Colors.white,
+                    //     icon: Icon(Icons.arrow_drop_down),
+                    //     iconSize: 36,
+                    //     isExpanded: true,
+                    //     alignment: Alignment.centerRight,
+                    //     value: controller.masgedwaseraController.text != ""
+                    //         ? controller.masgedwaseraController.text
+                    //         : null,
+                    //     items: controller.masgedwasera.map((valueitem) {
+                    //       return DropdownMenuItem<String>(
+                    //         alignment: Alignment.centerRight,
+                    //         value: valueitem,
+                    //         child: Text(
+                    //           valueitem,
+                    //           textAlign: TextAlign.right,
+                    //         ),
+                    //       );
+                    //     }).toList(),
+                    //     onChanged: (newvalue) {
+                    //       controller.masgedwaseraController.text = newvalue!;
+                    //       controller.update();
+                    //     },
+                    //   ),
+                    // ),
 
-                    Divider(),
+                    // Divider(),
                     // Padding(
                     //   padding: const EdgeInsets.all(8.0),
                     //   child: Container(
@@ -391,7 +391,7 @@ class DataMasagedAsnhlak3aly extends GetView<Asnhlak3alyController> {
                               bottom: BorderSide(color: Colors.grey.shade200))),
                       child: TextFormField(
                         controller: controller.electricnameController,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -411,7 +411,7 @@ class DataMasagedAsnhlak3aly extends GetView<Asnhlak3alyController> {
                               bottom: BorderSide(color: Colors.grey.shade200))),
                       child: TextFormField(
                         controller: controller.waternameController,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(

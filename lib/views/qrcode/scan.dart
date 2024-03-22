@@ -3,9 +3,9 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:muslimapp/controllers/qrcodeController.dart';
-import 'package:muslimapp/views/loading/loading.dart';
-import 'package:muslimapp/views/profile/profile.screen.dart';
+import 'package:hemaya/controllers/qrcodeController.dart';
+import 'package:hemaya/views/loading/loading.dart';
+import 'package:hemaya/views/profile/profile.screen.dart';
 
 class Scan extends GetView<QrcodeController> {
   const Scan({super.key});

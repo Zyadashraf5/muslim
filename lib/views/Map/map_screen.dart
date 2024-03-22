@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/masgedController.dart';
-import 'package:muslimapp/models/Masagedy.dart';
-import 'package:muslimapp/views/Inspection%20tours/Infringements.dart';
-import 'package:muslimapp/views/pdfs/pdf_inspection.dart';
-import 'package:muslimapp/views/select_masagedy/select_masagedy.dart';
+import 'package:hemaya/controllers/masgedController.dart';
+import 'package:hemaya/models/Masagedy.dart';
+import 'package:hemaya/views/Inspection%20tours/Infringements.dart';
+import 'package:hemaya/views/pdfs/pdf_inspection.dart';
+import 'package:hemaya/views/select_masagedy/select_masagedy.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -61,6 +61,8 @@ class _MapScreenState extends State<MapScreen> {
           ),
         ),
         body: GoogleMap(
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
           initialCameraPosition: CameraPosition(
             target: LatLng(24.728753, 46.724194),
             zoom: 10.0,

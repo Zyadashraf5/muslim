@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/models/Masagedy.dart';
-import 'package:muslimapp/views/pdfs/pdf_inspection.dart';
-import 'package:muslimapp/views/profile/profile.screen.dart';
+import 'package:hemaya/models/Masagedy.dart';
+import 'package:hemaya/views/pdfs/pdf_inspection.dart';
+import 'package:hemaya/views/profile/profile.screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QrcodeController extends GetxController {

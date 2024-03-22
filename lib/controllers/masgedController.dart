@@ -8,12 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:hemaya/views/signature/signature.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:muslimapp/controllers/qrcodeController.dart';
-import 'package:muslimapp/models/Masagedy.dart';
-import 'package:muslimapp/models/UserModel.dart';
-import 'package:muslimapp/routes/app_pages.dart';
+import 'package:hemaya/controllers/qrcodeController.dart';
+import 'package:hemaya/models/Masagedy.dart';
+import 'package:hemaya/models/UserModel.dart';
+import 'package:hemaya/routes/app_pages.dart';
 import 'package:pdf/widgets.dart';
 
 import 'package:qr_flutter/qr_flutter.dart';
@@ -105,7 +106,7 @@ class MasgedController extends GetxController {
 
   List Governorate = [
     "الدرعية",
-    "لمجمعة",
+    "المجمعة",
     "المزاحمية",
     "القويعية",
     "الحريق",
@@ -113,7 +114,7 @@ class MasgedController extends GetxController {
     "الخرج",
     "الدوادمي",
     "وادي الدواسر",
-    "الفالج",
+    "الافلاح",
     "الزلفي",
     "شقراء",
     "حوطة بني تميم",
@@ -126,14 +127,15 @@ class MasgedController extends GetxController {
     "مرات",
     "الدلم",
     "الرين",
+    "الرياض"
   ];
 
   List Centerr = [
-    " الشراف على المساجد بشمال الرياض",
-    " الشراف على المساجد بشرق الرياض",
-    " الشراف على المساجد بوسط الرياض",
-    " الشراف على المساجد بغرب الرياض",
-    " الشراف على المساجد بجنوب الرياض",
+    "شمال الرياض",
+    "شرق الرياض",
+    "وسط الرياض",
+    "غرب الرياض",
+    "جنوب الرياض",
   ];
 
   List masgedwasera = [
@@ -348,6 +350,11 @@ class MasgedController extends GetxController {
           Filter("users", arrayContains: ssn.toString()),
         )
         .get();
+    if (snapshot.docs.length == 0 && user.role != 4) {
+      Get.snackbar('', 'لا يوجد مساجد مسجلة');
+      return;
+    }
+
     allMasaged = snapshot.docs
         .where((doc) => !doc['seenUsers'].contains(ssn.toString()))
         .map((e) => MasagedyModel.fromSnapShot(e))
@@ -491,6 +498,7 @@ class MasgedController extends GetxController {
       date: DateTime.now().toString(),
       creator: userSSN.toString(),
       mo5alfat: mo5alfat,
+      seenUsers: [],
       users: [userSSN],
       signed: false,
       esthlak3aly: esthlak,
@@ -574,11 +582,17 @@ class MasgedController extends GetxController {
     final snapshot =
         await FirebaseFirestore.instance.collection("masgedy").doc(docID).get();
     MasagedyModel masged = MasagedyModel.fromSnapShot(snapshot);
-    masged.users!.add(userSSN);
-    await FirebaseFirestore.instance
-        .collection("masgedy")
-        .doc(docID)
-        .update(masged.toJson());
+    if (masged.users!.contains(userSSN)) {
+      Get.snackbar('', 'هذا المستخدم تم الارسال له من قبل');
+    } else {
+      masged.users!.add(userSSN);
+      await FirebaseFirestore.instance
+          .collection("masgedy")
+          .doc(docID)
+          .update(masged.toJson());
+      Get.snackbar('', ' تم الارسال له ');
+    }
+
     update();
   }
 
@@ -592,27 +606,21 @@ class MasgedController extends GetxController {
           .get();
 
       UserModel user = UserModel.fromSnapShot(userSnap);
-      if (int.parse(user.role) == 3) {
-        await FirebaseFirestore.instance
-            .collection('masgedy')
-            .doc(documentId)
-            .update({
-          'signedRole3': true,
-          'signerSSNRole3': ssn,
-          "signerNameRole3": user.name,
-          "signatureRole3": user.imagesignature,
-        });
-      } else if (int.parse(user.role) == 2) {
-        await FirebaseFirestore.instance
-            .collection('masgedy')
-            .doc(documentId)
-            .update({
-          'signedRole2': true,
-          'signerSSNRole2': ssn,
-          "signerNameRole2": user.name,
-          "signatureRole2": user.imagesignature,
-        });
+      if (user.imagesignature == null || user.imagesignature == "") {
+        Get.snackbar("", "الرجاء رفع صوره توقيع");
+        Get.to(signature());
+        return;
       }
+      await FirebaseFirestore.instance
+          .collection('masgedy')
+          .doc(documentId)
+          .update({
+        'signedRole3': true,
+        'signerSSNRole3': ssn,
+        "signerNameRole3": user.name,
+        "signatureRole3": user.imagesignature,
+      });
+
       update();
       print('تم التعديل الجدول');
     } catch (e) {

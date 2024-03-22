@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:muslimapp/controllers/masgedController.dart';
+import 'package:hemaya/controllers/masgedController.dart';
 
 import '../../controllers/Asnhlak3alyController.dart';
 
@@ -61,7 +61,7 @@ class _LocationPageState extends State<LocationPageAsnhlak3aly> {
                   width: MediaQuery.of(context).size.width - 100,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.lightBlue,
+                      backgroundColor: Colors.lightBlue,
                     ),
                     onPressed: () {
                       Get.back();

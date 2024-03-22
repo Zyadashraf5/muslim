@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:muslimapp/controllers/GadwelController.dart';
-import 'package:muslimapp/controllers/homeController.dart';
-import 'package:muslimapp/controllers/signatureController.dart';
-import 'package:muslimapp/views/pdfs/pdf.dart';
-import 'package:muslimapp/views/task/widget/item_widget.dart';
+import 'package:hemaya/controllers/GadwelController.dart';
+import 'package:hemaya/controllers/homeController.dart';
+import 'package:hemaya/controllers/signatureController.dart';
+import 'package:hemaya/views/pdfs/pdf.dart';
+import 'package:hemaya/views/task/widget/item_widget.dart';
 
 import '../../controllers/bottom_bar_controller.dart';
 import '../Gadwel/takree_gadwel.dart';
@@ -38,27 +38,26 @@ class signature extends GetView<SignatureController> {
                       right: 0,
                     ),
                     Positioned(
-                      top: 80,
+                      top: 40,
                       right: 0,
                       left: 0,
-                      bottom: 0,
-                      child: SingleChildScrollView(
-                        child: Center(
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "assets/logo1.png",
-                                height: 100,
-                              ),
-                              Text(
-                                "وزارة الشؤون الاسلاميه و الدعوة و الارشاد ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: "TajawalMedium",
-                                    color: Colors.black),
-                              ),
-                            ],
-                          ),
+                      bottom: 40,
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              "assets/logo1.png",
+                              height: 100,
+                            ),
+                            Text(
+                              "وزارة الشؤون الإسلامية والدعوة والإرشاد",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "TajawalMedium",
+                                  color: Colors.black),
+                            ),
+                          ],
                         ),
                       ),
                     ),

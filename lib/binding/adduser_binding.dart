@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/authController.dart';
-import 'package:muslimapp/controllers/masgedController.dart';
-import 'package:muslimapp/controllers/qrcodeController.dart';
+import 'package:hemaya/controllers/authController.dart';
+import 'package:hemaya/controllers/masgedController.dart';
+import 'package:hemaya/controllers/qrcodeController.dart';
 
 import '../controllers/SplashController.dart';
 

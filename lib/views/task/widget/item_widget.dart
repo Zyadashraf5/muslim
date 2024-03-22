@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/models/Masagedy.dart';
-import 'package:muslimapp/views/pdfs/pdf_inspection.dart';
+import 'package:hemaya/models/Masagedy.dart';
+import 'package:hemaya/views/pdfs/pdf_inspection.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../select_masagedy/select_masagedy.dart';
@@ -32,25 +32,30 @@ class ItemWidget extends StatelessWidget {
                   data: masagedyModel.namemasaged!,
                   size: 80,
                   foregroundColor: Colors.green.shade300),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "اسم المسجد : ${masagedyModel.namemasaged} ",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: "TajawalMedium",
-                        color: Colors.black),
-                  ),
-                  Text(
-                    "(الجولات التفقديه)",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: "TajawalMedium",
-                        color: Colors.black),
-                  ),
-                ],
+              SizedBox(
+                width: 200,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      textAlign: TextAlign.right,
+                      "اسم المسجد : ${masagedyModel.namemasaged} ",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: "TajawalMedium",
+                          color: Colors.black),
+                    ),
+                    Text(
+                      "(الجولات التفقديه)",
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: "TajawalMedium",
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

@@ -3,23 +3,23 @@ import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:muslimapp/controllers/GadwelController.dart';
-import 'package:muslimapp/controllers/homeController.dart';
-import 'package:muslimapp/controllers/signatureController.dart';
-import 'package:muslimapp/views/login/login.dart';
-import 'package:muslimapp/views/mshrf%20allgnh/lagna.dart';
-import 'package:muslimapp/views/profile/myAnalytics.dart';
-import 'package:muslimapp/views/task/ownGadawel.dart';
+import 'package:hemaya/controllers/GadwelController.dart';
+import 'package:hemaya/controllers/homeController.dart';
+import 'package:hemaya/controllers/signatureController.dart';
+import 'package:hemaya/views/login/login.dart';
+import 'package:hemaya/views/mshrf%20allgnh/lagna.dart';
+import 'package:hemaya/views/profile/myAnalytics.dart';
+import 'package:hemaya/views/task/ownGadawel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:muslimapp/controllers/authController.dart';
-import 'package:muslimapp/models/UserModel.dart';
-import 'package:muslimapp/routes/app_pages.dart';
+import 'package:hemaya/controllers/authController.dart';
+import 'package:hemaya/models/UserModel.dart';
+import 'package:hemaya/routes/app_pages.dart';
 
-import 'package:muslimapp/views/admin/add_user.dart';
-import 'package:muslimapp/views/loading/loading.dart';
-import 'package:muslimapp/views/select_masagedy/select_masagedy.dart';
-import 'package:muslimapp/views/task/taskes.screen.dart';
+import 'package:hemaya/views/admin/add_user.dart';
+import 'package:hemaya/views/loading/loading.dart';
+import 'package:hemaya/views/select_masagedy/select_masagedy.dart';
+import 'package:hemaya/views/task/taskes.screen.dart';
 
 import '../../controllers/bottom_bar_controller.dart';
 import '../Dutyofcommitteemember/Duty_of_committee_member.dart';
@@ -61,8 +61,8 @@ class profile extends GetView<AuthControler> {
                       ),
                       Positioned(
                         top: 40,
-                        right: 35,
-                        left: 35,
+                        right: 0,
+                        left: 0,
                         bottom: 40,
                         child: Center(
                           child: Column(
@@ -72,7 +72,8 @@ class profile extends GetView<AuthControler> {
                                 height: 100,
                               ),
                               Text(
-                                "وزارة الشؤون الاسلامية و الدعوة و الارشاد ",
+                                "وزارة الشؤون الإسلامية والدعوة والإرشاد",
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: "TajawalMedium",
@@ -129,7 +130,8 @@ class profile extends GetView<AuthControler> {
                               SizedBox(
                                 height: 10,
                               ),
-                              Text("إدارة حماية مرافق المساجد وخدماتها ",
+                              Text("إدارة حماية مرافق المساجد وخدماتها",
+                                  textAlign: TextAlign.right,
                                   style: TextStyle(
                                       fontSize: 13,
                                       fontFamily: "TajawalMedium",
@@ -172,7 +174,7 @@ class profile extends GetView<AuthControler> {
                                         "assets/task.png",
                                         // Replace with the actual image path
                                         () {
-                                          Get.toNamed(Routes.tasks);
+                                          // Get.toNamed(Routes.tasks);
                                         },
                                       ),
                                     if (int.parse(controller.user!.role) == 1 ||
@@ -265,21 +267,6 @@ class profile extends GetView<AuthControler> {
                                         await controller.signOut();
                                         Get.offAll(() => login());
                                       },
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 90, right: 280),
-                                      child: InkWell(
-                                        onTap: () {
-                                          launch(
-                                              "tel://1933"); // Replace "1234567890" with the desired phone number
-                                        },
-                                        child: CircleAvatar(
-                                          radius: 28,
-                                          backgroundImage: AssetImage(
-                                              "assets/customerserves.png"),
-                                        ),
-                                      ),
                                     ),
                                   ],
                                 ),

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/GadwelController.dart';
-import 'package:muslimapp/controllers/authController.dart';
-import 'package:muslimapp/controllers/homeController.dart';
-import 'package:muslimapp/controllers/masgedController.dart';
-import 'package:muslimapp/models/Gadwel.dart';
-import 'package:muslimapp/models/Masagedy.dart';
-import 'package:muslimapp/models/UserModel.dart';
-import 'package:muslimapp/views/Gadwel/editgadwel.dart';
-import 'package:muslimapp/views/Inspection%20tours/Infringements.dart';
-import 'package:muslimapp/views/pdfs/pdf.dart';
-import 'package:muslimapp/views/pdfs/pdfScreenShot.dart';
-import 'package:muslimapp/views/pdfs/screenShotMasged.dart';
-import 'package:muslimapp/views/task/widget/item_widget.dart';
+import 'package:hemaya/controllers/GadwelController.dart';
+import 'package:hemaya/controllers/authController.dart';
+import 'package:hemaya/controllers/homeController.dart';
+import 'package:hemaya/controllers/masgedController.dart';
+import 'package:hemaya/models/Gadwel.dart';
+import 'package:hemaya/models/Masagedy.dart';
+import 'package:hemaya/models/UserModel.dart';
+import 'package:hemaya/views/Gadwel/editgadwel.dart';
+import 'package:hemaya/views/Inspection%20tours/Infringements.dart';
+import 'package:hemaya/views/pdfs/pdf.dart';
+import 'package:hemaya/views/pdfs/pdfScreenShot.dart';
+import 'package:hemaya/views/pdfs/screenShotMasged.dart';
+import 'package:hemaya/views/task/widget/item_widget.dart';
 
 import '../../controllers/bottom_bar_controller.dart';
 import '../Gadwel/takree_gadwel.dart';
@@ -47,8 +47,8 @@ class Home extends GetView<HomeController> {
               ),
               Positioned(
                 top: 40,
-                right: 35,
-                left: 35,
+                right: 0,
+                left: 0,
                 bottom: 40,
                 child: SingleChildScrollView(
                   child: Center(
@@ -59,7 +59,8 @@ class Home extends GetView<HomeController> {
                           height: 100,
                         ),
                         Text(
-                          "وزارة الشؤون الاسلاميه و الدعوة و الارشاد ",
+                          "وزارة الشؤون الإسلامية والدعوة والإرشاد",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16,
                               fontFamily: "TajawalMedium",
@@ -98,7 +99,6 @@ class Home extends GetView<HomeController> {
                       top: 300,
                       right: 50,
                       left: 50,
-                      bottom: 200,
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -196,20 +196,23 @@ class Home extends GetView<HomeController> {
                                 controller.listShown = false;
                                 controller.update();
                               },
-                              child: Container(
-                                height: 50,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.red.shade300),
-                                child: Center(
-                                  child: Text(
-                                    "الغاء",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "TajawalMedium",
-                                        fontSize: 18),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  height: 50,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.red.shade300),
+                                  child: Center(
+                                    child: Text(
+                                      "الغاء",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "TajawalMedium",
+                                          fontSize: 18),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -224,7 +227,6 @@ class Home extends GetView<HomeController> {
                       top: 300,
                       right: 50,
                       left: 50,
-                      bottom: 200,
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -325,20 +327,23 @@ class Home extends GetView<HomeController> {
                                 controller.listShown2 = false;
                                 controller.update();
                               },
-                              child: Container(
-                                height: 50,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.red.shade300),
-                                child: Center(
-                                  child: Text(
-                                    "الغاء",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "TajawalMedium",
-                                        fontSize: 18),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  height: 50,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.red.shade300),
+                                  child: Center(
+                                    child: Text(
+                                      "الغاء",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "TajawalMedium",
+                                          fontSize: 18),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -456,7 +461,7 @@ class inspectiontours extends StatelessWidget {
                           ));
                         },
                       ),
-                      authControler.role != 2
+                      authControler.ssn != masgedModel.creator
                           ? Container()
                           : IconButton(
                               icon: Icon(
@@ -502,19 +507,6 @@ class inspectiontours extends StatelessWidget {
                           Get.to(screenshotMasged(masagedyModel: masgedModel));
                         },
                       ),
-                      masgedModel.creator != authControler.ssn
-                          ? Container()
-                          : IconButton(
-                              icon: Icon(
-                                Icons.edit_document,
-                                size: 30,
-                                color: Colors.green,
-                              ),
-                              onPressed: () {
-                                // Add your onPressed logic here
-                                //TODO: edit gadwel
-                              },
-                            ),
                       IconButton(
                         icon: Icon(
                           Icons.archive,
@@ -568,7 +560,6 @@ class gadwal extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           child: Container(
-            width: 365,
             height: 160,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -609,119 +600,119 @@ class gadwal extends StatelessWidget {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      gadwelModel.creator != authControler.ssn
-                          ? Container()
-                          : IconButton(
-                              icon: Icon(
-                                Icons.delete,
-                                size: 30,
-                                color: Colors.green,
-                              ),
-                              onPressed: () async {
-                                await controller.deleteGadwelDocument(
-                                    gadwelModel.year + gadwelModel.month);
-                                controller.update();
-                              },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    gadwelModel.creator != authControler.ssn
+                        ? Container()
+                        : IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              size: 30,
+                              color: Colors.green,
                             ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.visibility,
-                          size: 30,
-                          color: Colors.green,
-                        ),
-                        onPressed: () async {
-                          GadwelController gadwelController =
-                              Get.put(GadwelController());
-                          gadwelController.currentGadwel = gadwelModel;
+                            onPressed: () async {
+                              await controller.deleteGadwelDocument(
+                                  gadwelModel.year + gadwelModel.month);
 
-                          gadwelController.update();
-                          Get.to(Pdf());
-                        },
+                              controller.update();
+                            },
+                          ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.visibility,
+                        size: 30,
+                        color: Colors.green,
                       ),
-                      authControler.role != 3
-                          ? Container()
-                          : IconButton(
-                              icon: Icon(
-                                Icons.edit,
-                                size: 30,
-                                color: Colors.green,
-                              ),
-                              onPressed: () async {
-                                GadwelController gadwelController =
-                                    Get.put(GadwelController());
-                                await gadwelController.signDoc(
-                                    gadwelModel.year + gadwelModel.month);
-                              },
+                      onPressed: () async {
+                        GadwelController gadwelController =
+                            Get.put(GadwelController());
+                        gadwelController.currentGadwel = gadwelModel;
+
+                        gadwelController.update();
+                        Get.to(Pdf());
+                      },
+                    ),
+                    authControler.role != 3
+                        ? Container()
+                        : IconButton(
+                            icon: Icon(
+                              Icons.edit,
+                              size: 30,
+                              color: Colors.green,
                             ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.share,
-                          size: 30,
-                          color: Colors.green,
-                        ),
-                        onPressed: () {
-                          controller.selectedDoc =
-                              gadwelModel.year + gadwelModel.month;
-                          controller.listShown = true;
-                          controller.update();
-                        },
+                            onPressed: () async {
+                              GadwelController gadwelController =
+                                  Get.put(GadwelController());
+                              await gadwelController.signDoc(
+                                  gadwelModel.year + gadwelModel.month);
+                              await controller.getallGadwel();
+                              await controller.myGadawel();
+                            },
+                          ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.share,
+                        size: 30,
+                        color: Colors.green,
                       ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.print,
-                          size: 30,
-                          color: Colors.green,
-                        ),
-                        onPressed: () async {
-                          GadwelController gadwelController =
-                              Get.put(GadwelController());
-                          gadwelController.currentGadwel = gadwelModel;
-                          gadwelController.update();
-
-                          Get.to(screenshot(
-                              currentGadwel: gadwelController.currentGadwel!));
-                        },
+                      onPressed: () {
+                        controller.selectedDoc =
+                            gadwelModel.year + gadwelModel.month;
+                        controller.listShown = true;
+                        controller.update();
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.print,
+                        size: 30,
+                        color: Colors.green,
                       ),
-                      gadwelModel.creator != authControler.ssn
-                          ? Container()
-                          : IconButton(
-                              icon: Icon(
-                                Icons.edit_document,
-                                size: 30,
-                                color: Colors.green,
-                              ),
-                              onPressed: () {
-                                GadwelController gadwelController =
-                                    Get.put(GadwelController());
-                                gadwelController.currentGadwel = gadwelModel;
+                      onPressed: () async {
+                        GadwelController gadwelController =
+                            Get.put(GadwelController());
+                        gadwelController.currentGadwel = gadwelModel;
+                        gadwelController.update();
 
-                                gadwelController.update();
-                                Get.to(editgadwel(gadwelModel: gadwelModel));
-                              },
+                        Get.to(screenshot(
+                            currentGadwel: gadwelController.currentGadwel!));
+                      },
+                    ),
+                    gadwelModel.creator != authControler.ssn
+                        ? Container()
+                        : IconButton(
+                            icon: Icon(
+                              Icons.edit_document,
+                              size: 30,
+                              color: Colors.green,
                             ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.archive,
-                          size: 30,
-                          color: Colors.green,
-                        ),
-                        onPressed: () async {
-                          await controller
-                              .archiveDoc(gadwelModel.year + gadwelModel.month);
-                          HomeController homeController =
-                              Get.put(HomeController());
-                          await homeController.myGadawel();
-                        },
+                            onPressed: () {
+                              GadwelController gadwelController =
+                                  Get.put(GadwelController());
+                              gadwelController.currentGadwel = gadwelModel;
+
+                              gadwelController.update();
+                              Get.to(editgadwel(gadwelModel: gadwelModel));
+                            },
+                          ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.archive,
+                        size: 30,
+                        color: Colors.green,
                       ),
-                    ],
-                    mainAxisSize: MainAxisSize.min,
-                  ),
+                      onPressed: () async {
+                        await controller
+                            .archiveDoc(gadwelModel.year + gadwelModel.month);
+                        HomeController homeController =
+                            Get.put(HomeController());
+                        await homeController.myGadawel();
+                      },
+                    ),
+                  ],
+                  mainAxisSize: MainAxisSize.min,
                 ),
               ],
             ),

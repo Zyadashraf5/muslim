@@ -4,11 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/models/UserModel.dart';
-import 'package:muslimapp/views/admin/Dashbord_app.dart';
-import 'package:muslimapp/views/login/login.dart';
-import 'package:muslimapp/views/movebar/bottom_move.dart';
-import 'package:muslimapp/views/home/home_screen.dart';
+import 'package:hemaya/models/UserModel.dart';
+import 'package:hemaya/views/admin/Dashbord_app.dart';
+import 'package:hemaya/views/login/login.dart';
+import 'package:hemaya/views/movebar/bottom_move.dart';
+import 'package:hemaya/views/home/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../routes/app_pages.dart';

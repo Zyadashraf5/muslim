@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/masgedController.dart';
+import 'package:hemaya/controllers/masgedController.dart';
 
 import '../../controllers/masgedController.dart';
 import '../../controllers/masgedController.dart';

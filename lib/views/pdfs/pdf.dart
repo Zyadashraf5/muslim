@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/GadwelController.dart';
+import 'package:hemaya/controllers/GadwelController.dart';
 
 class Pdf extends GetView<GadwelController> {
   Pdf({super.key});

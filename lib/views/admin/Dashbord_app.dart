@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:muslimapp/controllers/authController.dart';
-import 'package:muslimapp/controllers/homeController.dart';
-import 'package:muslimapp/views/admin/add_user.dart';
-import 'package:muslimapp/views/admin/analytics.dart';
-import 'package:muslimapp/views/admin/analyticsGawlat.dart';
-import 'package:muslimapp/views/home/home_screen.dart';
-import 'package:muslimapp/views/login/login.dart';
+import 'package:hemaya/controllers/authController.dart';
+import 'package:hemaya/controllers/homeController.dart';
+import 'package:hemaya/views/admin/add_user.dart';
+import 'package:hemaya/views/admin/analytics.dart';
+import 'package:hemaya/views/admin/analyticsGawlat.dart';
+import 'package:hemaya/views/admin/mola7zat.dart';
+import 'package:hemaya/views/home/home_screen.dart';
+import 'package:hemaya/views/login/login.dart';
 
 class DashbordApp extends StatelessWidget {
   const DashbordApp({Key? key}) : super(key: key);
@@ -103,6 +104,33 @@ class DashbordApp extends StatelessWidget {
                       child: Center(
                         child: Text(
                           "احصائيات الجداول",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "TajawalMedium",
+                              fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      HomeController homeController = Get.put(HomeController());
+                      await homeController.dashboardMola7zat();
+                      Get.to(mol7azat());
+                    },
+                    child: Container(
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(0),
+                          color: Colors.green),
+                      child: Center(
+                        child: Text(
+                          "احصائيات الملاحظات و التعديات",
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
