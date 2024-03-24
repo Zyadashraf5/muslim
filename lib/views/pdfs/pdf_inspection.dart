@@ -319,10 +319,10 @@ class PdfInspection extends GetView<MasgedController> {
                                     fontSize: 11, fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
-                              masgedModel.signatureRole3 != null
+                              masgedModel.signatureRole3 != null && masgedModel.signatureRole3!=""
                                   ? Text(masgedModel.signerNameRole3!)
                                   : Container(),
-                              masgedModel.signatureRole3 != null
+                              masgedModel.signatureRole3 != null && masgedModel.signatureRole3!=""
                                   ? Image(
                                       width: 100,
                                       height: 50,

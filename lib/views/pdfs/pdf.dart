@@ -362,7 +362,8 @@ class Pdf extends GetView<GadwelController> {
                         style: TextStyle(
                             fontSize: 11, fontWeight: FontWeight.bold),
                       ),
-                      controller.currentGadwel!.signatureRole3 != null
+                      controller.currentGadwel!.signatureRole3 != null &&
+                              controller.currentGadwel!.signatureRole3 != ""
                           ? Container(
                               width: 150,
                               height: 150,
