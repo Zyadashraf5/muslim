@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "934080008391",
-    "project_id": "muslim-b3521",
-    "storage_bucket": "muslim-b3521.appspot.com"
+    "project_number": "498818563105",
+    "project_id": "muslim-hemaya",
+    "storage_bucket": "muslim-hemaya.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:934080008391:android:0a79cd767bd941aa8a2ee2",
+        "mobilesdk_app_id": "1:498818563105:android:ac03cf0b8ca2859c9c3760",
         "android_client_info": {
-          "package_name": "com.example.muslimapp"
+          "package_name": "com.hemaya.muslimapp"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDepWOm74d25ryK5-j87_BTRJa2j8-Ze3w"
+          "current_key": "AIzaSyBxrdCBEdV8-ULRDAhXGPOrFwm2FRQq_Yk"
         }
       ],
       "services": {

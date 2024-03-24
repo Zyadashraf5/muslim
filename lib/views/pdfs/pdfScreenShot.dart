@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:hemaya/models/Gadwel.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
@@ -893,9 +894,13 @@ Future<String> saveImage(Uint8List bytes) async {
       },
     ),
   );
-
-  Directory output = Directory('/storage/emulated/0/Download');
-  final file = File("${output!.path}/$name.pdf");
+  Directory? output;
+  if (Platform.isAndroid) {
+    output = Directory('/storage/emulated/0/Download');
+  } else {
+    output = await getApplicationDocumentsDirectory();
+  }
+  final file = File("${output.path}/$name.pdf");
   final pdfBytes = await pdf.save();
 
   await file.writeAsBytes(pdfBytes);
