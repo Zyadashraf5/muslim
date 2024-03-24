@@ -956,8 +956,12 @@ Future<String> saveImage(Uint8List bytes, MasagedyModel masagedyModel) async {
       );
     });
   }
-
-  Directory output = Directory('/storage/emulated/0/Download');
+  Directory? output;
+  if (Platform.isAndroid) {
+    output = Directory('/storage/emulated/0/Download');
+  } else {
+    output = await getApplicationDocumentsDirectory();
+  }
   final file = File("${output!.path}/$name.pdf");
   final pdfBytes = await pdf.save();
 
