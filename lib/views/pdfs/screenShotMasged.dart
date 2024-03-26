@@ -962,7 +962,7 @@ Future<String> saveImage(Uint8List bytes, MasagedyModel masagedyModel) async {
   } else {
     output = await getApplicationDocumentsDirectory();
   }
-  final file = File("${output!.path}/$name.pdf");
+  final file = File("${output.path}/$name.pdf");
   final pdfBytes = await pdf.save();
 
   await file.writeAsBytes(pdfBytes);
